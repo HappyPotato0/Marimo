@@ -156,7 +156,7 @@ def student_details(request, pk):
     })
 
 
-@teacher_only
+@student_only
 def my_teachers(request):
     student_profile = StudentProfile.objects.get(student=request.user)
     teachers = TeacherStudent.objects.filter(student=student_profile).select_related('teacher', 'teacher__teacher')
@@ -167,7 +167,7 @@ def my_teachers(request):
     })
 
 
-@teacher_only
+@student_only
 def teacher_details(request, pk):
     student_profile = StudentProfile.objects.get(student=request.user)
     teacher_student = get_object_or_404(
