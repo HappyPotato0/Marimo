@@ -1,0 +1,10 @@
+.idea/
+.venv/
+.git/
+__pycache__/
+*.pyc
+.env
+media/
+staticfiles/
+logs/
+*.dump

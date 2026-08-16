@@ -1,0 +1,111 @@
+{% extends "scheduling/schedule_student.html" %}
+
+{% block modal %}
+
+    <div class="slot-form-overlay">
+
+        <div class="slot-modal-card">
+
+            <div class="slot-modal-header">
+                <div>
+                    <div class="slot-modal-title">Оберіть викладача</div>
+                    <div class="slot-modal-date-badge" id="slot-modal-date" data-date="{{ date|date:'Y-m-d' }}">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <path d="M16 2v4"/>
+                            <path d="M8 2v4"/>
+                            <path d="M3 10h18"/>
+                        </svg>
+                        <span id="slot-modal-date-text"></span>
+                    </div>
+                </div>
+                <a class="slot-modal-close"
+                   href="{% url 'scheduling:student_schedule' %}?day={{ date|date:'Y-m-d' }}">✕</a>
+            </div>
+
+            <p class="slot-modal-subtitle">
+                Оберіть тривалість уроку, щоб побачити вільні слоти на цю дату
+            </p>
+
+            {% if teachers %}
+
+                <div class="teacher-choice-list">
+
+                    {% for ts in teachers %}
+
+                        <div class="teacher-choice-block">
+
+                            <div class="teacher-choice-name">
+                                {{ ts.teacher }}
+                            </div>
+
+                            {% if ts.teacher.lesson_teacher.all %}
+
+                                <div class="duration-chip-list">
+
+                                    {% for duration in ts.teacher.lesson_teacher.all %}
+
+                                        <a class="duration-chip"
+                                           href="{% url 'scheduling:show_availability' date ts.teacher.id duration.id %}">
+                                            {{ duration.duration_minutes }} хв
+
+                                        </a>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% else %}
+
+                                <p class="schedule-empty schedule-empty--small">
+                                    Немає доступних тривалостей уроку
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="schedule-empty">
+                    У вас поки немає доданих викладачів
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <script>
+        window.scrollTo(0, 0);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateEl = document.getElementById('slot-modal-date');
+            const textEl = document.getElementById('slot-modal-date-text');
+            if (!dateEl || !textEl) return;
+
+            const parts = dateEl.dataset.date.split('-');
+            if (parts.length !== 3) return;
+
+            const [year, month, day] = parts.map(Number);
+            const dateObj = new Date(year, month - 1, day);
+
+            const weekdays = [
+                'Неділя', 'Понеділок', 'Вівторок', 'Середа',
+                'Четвер', "П'ятниця", 'Субота'
+            ];
+
+            textEl.textContent = weekdays[dateObj.getDay()] + ', ' +
+                String(day).padStart(2, '0') + '.' +
+                String(month).padStart(2, '0') + '.' + year;
+        });
+    </script>
+
+{% endblock %}

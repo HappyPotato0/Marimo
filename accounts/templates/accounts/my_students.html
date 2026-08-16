@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Учні{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/my_students.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="students-wrapper">
+
+    <div class="students-header">
+
+        <h1 class="students-title">
+            Мої учні
+        </h1>
+
+        <a class="students-add-btn" href="#">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round">
+                <path d="M12 5v14"/>
+                <path d="M5 12h14"/>
+            </svg>
+            Додати учня
+        </a>
+
+    </div>
+
+    {% if students %}
+
+        <div class="students-grid">
+
+            {% for i in students %}
+
+                <a class="student-card" href="{{ i.student.get_absolute_url }}">
+
+                    <div class="student-avatar">
+                        {{ i.student.student.first_name|first }}{{ i.student.student.last_name|first }}
+                    </div>
+
+                    <div class="student-info">
+
+                        <div class="student-name">
+                            {{ i.student.student.first_name }}
+                            {{ i.student.student.last_name }}
+                        </div>
+
+                        <div class="student-price">
+                            {{ i.price }} ₴/урок
+                        </div>
+
+                    </div>
+
+                    <div class="student-balance">
+                        <div class="student-balance-label">Баланс</div>
+                        <div class="student-balance-amount">{{ i.balance }} ₴</div>
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="students-empty">
+            У вас поки немає учнів.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

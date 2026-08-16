@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Профіль{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="profile-wrapper">
+
+        <div class="profile-nav">
+
+            <a class="btn" href="{% url 'accounts:profile_details' 'teacher' %}">
+                Вчитель
+            </a>
+
+            <a class="btn active" href="{% url 'accounts:profile_details' 'student' %}">
+                Студент
+            </a>
+
+        </div>
+
+        <section class="profile-section">
+
+            <h2 class="section-title">
+                Загальна інформація
+            </h2>
+
+            <form
+                    class="profile-setting-row"
+                    action="{% url 'accounts:config_profile' 'update_name' %}"
+                    method="post"
+            >
+                {% csrf_token %}
+
+                <label class="profile-setting-label">
+                    Ім’я
+                </label>
+
+                <div class="profile-setting-control">
+
+                    <input
+                            class="profile-input"
+                            type="text"
+                            name="value"
+                            value="{{ user.first_name|default:'' }}"
+                            placeholder="Введіть ім’я"
+                            required
+                    >
+
+                    <button
+                            class="profile-submit"
+                            type="submit"
+                    >
+                        Змінити
+                    </button>
+
+                </div>
+
+            </form>
+
+            <form
+                    class="profile-setting-row"
+                    action="{% url 'accounts:config_profile' 'update_last_name' %}"
+                    method="post"
+            >
+                {% csrf_token %}
+
+                <label class="profile-setting-label">
+                    Прізвище
+                </label>
+
+                <div class="profile-setting-control">
+
+                    <input
+                            class="profile-input"
+                            type="text"
+                            name="value"
+                            value="{{ user.last_name|default:'' }}"
+                            placeholder="Введіть прізвище"
+                            required
+                    >
+
+                    <button
+                            class="profile-submit"
+                            type="submit"
+                    >
+                        Змінити
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div class="profile-setting-row">
+
+                <span class="profile-setting-label">
+                    Пошта
+                </span>
+
+                <span class="profile-email">
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+            <a class="profile-submit" href="{% url 'password_change' %}">
+                Змінити пароль
+            </a>
+
+        </section>
+
+        {% if not student %}
+
+            <section class="profile-section">
+
+                <h2 class="section-title">
+                    Профіль студента
+                </h2>
+
+                <p class="student-empty-text">
+                    На жаль, ви поки що не студент((
+                </p>
+
+            </section>
+
+        {% else %}
+
+            <section class="profile-section">
+
+                <h2 class="section-title">
+                    Профіль студента
+                </h2>
+
+                <div class="teacher-block">
+
+                    <h3 class="teacher-block-title">
+                        Опис
+                    </h3>
+
+                    <form
+                            class="form-column"
+                            action="{% url 'accounts:config_profile' 'change_student_bio' %}"
+                            method="post"
+                    >
+                        {% csrf_token %}
+
+                        <textarea
+                                class="profile-textarea"
+                                name="value"
+                                placeholder="Введіть опис"
+                                rows="6"
+                        >{{ student.bio }}</textarea>
+
+                        <input
+                                class="profile-submit"
+                                type="submit"
+                                value="Внести зміни"
+                        >
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

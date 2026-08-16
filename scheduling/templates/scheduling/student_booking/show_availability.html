@@ -1,0 +1,117 @@
+{% extends "scheduling/schedule_student.html" %}
+
+{% block modal %}
+
+    <div class="slot-form-overlay">
+
+        <div class="slot-modal-card">
+
+            <div class="slot-modal-header">
+                <div>
+                    <div class="slot-modal-title">Оберіть час</div>
+                </div>
+                <a class="slot-modal-close"
+                   href="{% url 'scheduling:student_schedule' %}?day={{ date|date:'Y-m-d' }}">✕</a>
+            </div>
+
+            <div class="context-badge-row">
+
+                <div class="slot-modal-date-badge" id="slot-modal-date" data-date="{{ date|date:'Y-m-d' }}">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <path d="M16 2v4"/>
+                        <path d="M8 2v4"/>
+                        <path d="M3 10h18"/>
+                    </svg>
+                    <span id="slot-modal-date-text"></span>
+                </div>
+
+                <div class="duration-info-badge">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 3"/>
+                    </svg>
+                    {{ duration_minutes }} хв
+                </div>
+
+            </div>
+
+            <div class="teacher-info-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="4"/>
+                    <path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>
+                </svg>
+                {{ teacher }}
+            </div>
+
+            {% if available_slots %}
+
+                <div class="time-chip-list">
+
+                    {% for slot in available_slots %}
+
+                        <form method="post"
+                              action="{% url 'scheduling:student_confirm_booking' %}"
+                              class="time-chip-form">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="teacher_id" value="{{ teacher.id }}">
+                            <input type="hidden" name="duration_id" value="{{ duration.id }}">
+                            <input type="hidden" name="date" value="{{ date|date:'Y-m-d' }}">
+                            <input type="hidden" name="start_time" value="{{ slot.start_time|time:'H:i' }}">
+                            <input type="hidden" name="end_time" value="{{ slot.end_time|time:'H:i' }}">
+
+                            <button type="submit" class="time-chip">
+                                {{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}
+                            </button>
+
+                        </form>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="schedule-empty">
+                    На цю дату немає вільних слотів для обраної тривалості
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <script>
+        window.scrollTo(0, 0);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateEl = document.getElementById('slot-modal-date');
+            const textEl = document.getElementById('slot-modal-date-text');
+            if (!dateEl || !textEl) return;
+
+            const parts = dateEl.dataset.date.split('-');
+            if (parts.length !== 3) return;
+
+            const [year, month, day] = parts.map(Number);
+            const dateObj = new Date(year, month - 1, day);
+
+            const weekdays = [
+                'Неділя', 'Понеділок', 'Вівторок', 'Середа',
+                'Четвер', "П'ятниця", 'Субота'
+            ];
+
+            textEl.textContent = weekdays[dateObj.getDay()] + ', ' +
+                String(day).padStart(2, '0') + '.' +
+                String(month).padStart(2, '0') + '.' + year;
+        });
+    </script>
+
+{% endblock %}

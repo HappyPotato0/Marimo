@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Сталі уроки{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'scheduling/css/regular_lessons.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="weekly-wrapper">
+
+        <h1 class="weekly-title">
+            Сталі уроки
+            <span class="info-icon">
+                <svg viewBox="0 0 24 24" width="25" height="25" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 8h.01"/>
+                    <path d="M11 12h1v4h1"/>
+                </svg>
+                <span class="info-tooltip info-tooltip--left">Уроки, які повторюються щотижня в один і той самий день та час з конкретним учнем</span>
+            </span>
+        </h1>
+
+        <div class="week-grid">
+
+            {% for day in week %}
+
+                <section class="week-card">
+
+                    <div class="week-card-header">
+
+                        <h2 class="week-day-title">
+                            {{ day.day_label }}
+                        </h2>
+
+                        <a class="week-add-btn"
+                           href="{% url 'scheduling:regular_lessons_create' day.day_value %}"
+                           title="Додати урок">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                 stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M12 5v14"/>
+                                <path d="M5 12h14"/>
+                            </svg>
+                        </a>
+
+                    </div>
+
+                    {% if day.slots %}
+
+                        <div class="week-slot-list">
+
+                            {% for lesson in day.slots %}
+
+                                <div class="week-slot-card">
+
+                                    <a class="week-slot-student" href="{{ lesson.student.get_absolute_url }}">
+
+                                        <span class="week-slot-avatar">
+                                            {{ lesson.student.student.first_name|first }}{{ lesson.student.student.last_name|first }}
+                                        </span>
+
+                                        <span class="week-slot-student-name">
+                                            {{ lesson.student.student.first_name }} {{ lesson.student.student.last_name }}
+                                        </span>
+
+                                    </a>
+
+                                    <div class="week-slot-bottom">
+
+                                        <span class="week-slot-time">
+                                            {{ lesson.start_time|time:"H:i" }}–{{ lesson.end_time|time:"H:i" }}
+                                        </span>
+
+                                        <div class="week-slot-actions">
+
+                                            <a class="week-icon-btn week-edit-btn"
+                                               href="{% url 'scheduling:regular_lessons_update' lesson.id %}"
+                                               title="Змінити">
+                                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                </svg>
+                                            </a>
+
+                                            <a class="week-icon-btn week-delete-btn"
+                                               href="{% url 'scheduling:regular_lessons_delete' lesson.id %}"
+                                               title="Видалити">
+                                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path d="M4 7h16"/>
+                                                    <path d="M10 11v6"/>
+                                                    <path d="M14 11v6"/>
+                                                    <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/>
+                                                    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                                                </svg>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="week-empty">
+                            Уроків не заплановано
+                        </p>
+
+                    {% endif %}
+
+                </section>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% block modal %}{% endblock %}
+
+{% endblock %}

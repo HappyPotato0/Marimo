@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Щотижневий розклад{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'scheduling/css/week_availability.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="weekly-wrapper">
+
+        <h1 class="weekly-title">
+            Щотижневий розклад
+            <span class="info-icon">
+        <svg viewBox="0 0 24 24" width="25" height="25" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8h.01"/>
+            <path d="M11 12h1v4h1"/>
+        </svg>
+        <span class="info-tooltip info-tooltip--left">Ваш стандартний робочий час на кожен день тижня. Цей розклад повторюється щотижня, доки ви не додасте виключення на конкретну дату нижче</span>
+    </span>
+        </h1>
+
+        <div class="week-grid">
+
+            {% for day in week %}
+
+                <section class="week-card">
+
+                    <div class="week-card-header">
+
+                        <h2 class="week-day-title">
+                            {{ day.day_label }}
+                        </h2>
+
+                        <a class="week-add-btn"
+                           href="{% url 'scheduling:create_week_availability' day.day_value %}"
+                           title="Додати час">
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                 stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M12 5v14"/>
+                                <path d="M5 12h14"/>
+                            </svg>
+                        </a>
+
+                    </div>
+
+                    {% if day.slots %}
+
+                        <div class="week-slot-list">
+
+                            {% for slot in day.slots %}
+
+                                <div class="week-slot-card">
+
+                                    <div class="week-slot-time">
+                                        {{ slot.start_time|time:"H:i" }}
+                                        —
+                                        {{ slot.end_time|time:"H:i" }}
+                                    </div>
+
+                                    <div class="week-slot-actions">
+
+                                        <a class="week-icon-btn week-edit-btn"
+                                           href="{% url 'scheduling:update_week_availability' slot.id %}"
+                                           title="Змінити">
+                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                 stroke-linejoin="round">
+                                                <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                            </svg>
+                                        </a>
+
+                                        <a class="week-icon-btn week-delete-btn"
+                                           href="{% url 'scheduling:delete_week_availability' slot.id %}"
+                                           title="Видалити">
+                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                 stroke-linejoin="round">
+                                                <path d="M4 7h16"/>
+                                                <path d="M10 11v6"/>
+                                                <path d="M14 11v6"/>
+                                                <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/>
+                                                <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                                            </svg>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="week-empty">
+                            Розклад не вказано
+                        </p>
+
+                    {% endif %}
+
+                </section>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="overrides-header">
+
+            <h2 class="overrides-title">
+                Виключення в розкладі
+                <span class="info-icon">
+        <svg viewBox="0 0 24 24" width="25" height="25" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8h.01"/>
+            <path d="M11 12h1v4h1"/>
+        </svg>
+        <span class="info-tooltip">Дозволяє встановити інший робочий час на конкретну дату, не змінюючи звичайний тижневий розклад</span>
+    </span>
+            </h2>
+
+            <a class="overrides-add-btn" href="{% url 'scheduling:create_date_availability' %}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                     stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M12 5v14"/>
+                    <path d="M5 12h14"/>
+                </svg>
+                Додати виключення
+            </a>
+
+        </div>
+
+        {% if date_overrides %}
+
+            <div class="overrides-list">
+
+                {% for override in date_overrides %}
+
+                    <div class="override-card">
+
+                        <div class="override-date">
+                            <div class="override-date-day">
+                                {{ override.date|date:"d E" }}
+                            </div>
+                            <div class="override-date-weekday">
+                                {{ override.date|date:"l" }}
+                            </div>
+                        </div>
+
+                        <div class="override-slot">
+
+                            <div class="override-slot-time">
+                                {{ override.start_time|time:"H:i" }}
+                                —
+                                {{ override.end_time|time:"H:i" }}
+                            </div>
+
+                            <a class="week-icon-btn week-edit-btn"
+                               href="{% url 'scheduling:update_date_availability' override.id %}"
+                               title="Змінити">
+                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                </svg>
+                            </a>
+
+                            <a class="week-icon-btn week-delete-btn"
+                               href="{% url 'scheduling:delete_date_availability' override.id %}"
+                               title="Видалити">
+                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path d="M4 7h16"/>
+                                    <path d="M10 11v6"/>
+                                    <path d="M14 11v6"/>
+                                    <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/>
+                                    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="week-empty">
+                Немає виключень в тижневому розкладі
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    {% block modal %}{% endblock %}
+
+{% endblock %}

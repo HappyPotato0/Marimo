@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ teacher_student.teacher.teacher.first_name }} {{ teacher_student.teacher.teacher.last_name }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/teacher_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="teacher-detail-layout">
+
+    <div class="teacher-profile-card">
+
+        <div class="teacher-profile-balance-banner">
+            <div class="teacher-profile-balance-label">Мій баланс</div>
+            <div class="teacher-profile-balance-amount">{{ teacher_student.balance }} ₴</div>
+        </div>
+
+        <div class="teacher-profile-body">
+
+            <div class="teacher-profile-header">
+                <div class="teacher-profile-avatar">
+                    {{ teacher_student.teacher.teacher.first_name|first }}{{ teacher_student.teacher.teacher.last_name|first }}
+                </div>
+                <div class="teacher-profile-info">
+                    <div class="teacher-profile-name">
+                        {{ teacher_student.teacher.teacher.first_name }}
+                        {{ teacher_student.teacher.teacher.last_name }}
+                    </div>
+                    <div class="teacher-profile-email">
+                        {{ teacher_student.teacher.teacher.email }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="teacher-price-row">
+                <span class="teacher-price-label">Ціна за урок</span>
+                <span class="teacher-price-value">{{ teacher_student.price }} ₴</span>
+            </div>
+
+            {% if teacher_student.teacher.bio %}
+                <div class="teacher-profile-bio">
+                    <div class="teacher-profile-bio-label">Про вчителя</div>
+                    <div class="teacher-profile-bio-text">{{ teacher_student.teacher.bio }}</div>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="teacher-transactions-panel">
+
+        <h2 class="transactions-title">
+            Історія операцій
+        </h2>
+
+        {% if transaction_history %}
+
+            <div class="transactions-list">
+
+                {% for action in transaction_history %}
+
+                    <div class="balance-action balance-action--{{ action.action_type }}">
+
+                        <div class="balance-action-header">
+                            <div class="balance-action-icon">
+                                {% if action.action_type == 'credit' %}
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
+                                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                        <path d="M12 5v14M5 12h14"/>
+                                    </svg>
+                                {% elif action.action_type == 'debit' %}
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
+                                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                        <path d="M5 12h14"/>
+                                    </svg>
+                                {% elif action.action_type == 'refund' %}
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
+                                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                        <path d="M18 6 6 18M6 6l12 12"/>
+                                    </svg>
+                                {% elif action.action_type == 'restore' %}
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
+                                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 12a9 9 0 1 0 3-6.7M3 5v5h5"/>
+                                    </svg>
+                                {% endif %}
+                            </div>
+                            <div class="balance-action-title">{{ action.get_action_type_display }}</div>
+                        </div>
+
+                        <div class="balance-action-meta">
+                            <span class="balance-action-date">{{ action.created|date:"d E, H:i" }}</span>
+                            {% if action.slot %}
+                                <a href="{% url 'scheduling:student_schedule' %}?day={{ action.slot.date|date:'Y-m-d' }}"
+                                   class="balance-slot-link">
+                                    {{ action.slot.date }} →
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <span class="balance-action-amount">
+                            {% if action.amount >= 0 %}+{% endif %}{{ action.amount }} ₴
+                        </span>
+
+                        {% if action.comment %}
+                            <div class="balance-action-comment">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                <span>{{ action.comment }}</span>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="transactions-empty">
+                Ще немає жодної операції.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

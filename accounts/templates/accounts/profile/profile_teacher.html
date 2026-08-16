@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Профіль{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="profile-wrapper">
+
+        <div class="profile-nav">
+
+            <a class="btn active" href="{% url 'accounts:profile_details' 'teacher' %}">
+                Вчитель
+            </a>
+
+            <a class="btn" href="{% url 'accounts:profile_details' 'student' %}">
+                Студент
+            </a>
+
+        </div>
+
+        <section class="profile-section">
+
+            <h2 class="section-title">
+                Загальна інформація
+            </h2>
+
+            <form
+                    class="profile-setting-row"
+                    action="{% url 'accounts:config_profile' 'update_name' %}"
+                    method="post"
+            >
+                {% csrf_token %}
+
+                <label class="profile-setting-label">
+                    Ім’я
+                </label>
+
+                <div class="profile-setting-control">
+                    <input
+                            class="profile-input"
+                            type="text"
+                            name="value"
+                            value="{{ user.first_name|default:'' }}"
+                            placeholder="Введіть ім’я"
+                            required
+                    >
+
+                    <button class="profile-submit" type="submit">
+                        Змінити
+                    </button>
+                </div>
+            </form>
+
+            <form
+                    class="profile-setting-row"
+                    action="{% url 'accounts:config_profile' 'update_last_name' %}"
+                    method="post"
+            >
+                {% csrf_token %}
+
+                <label class="profile-setting-label">
+                    Прізвище
+                </label>
+
+                <div class="profile-setting-control">
+                    <input
+                            class="profile-input"
+                            type="text"
+                            name="value"
+                            value="{{ user.last_name|default:'' }}"
+                            placeholder="Введіть прізвище"
+                            required
+                    >
+
+                    <button class="profile-submit" type="submit">
+                        Змінити
+                    </button>
+                </div>
+            </form>
+
+            <div class="profile-setting-row">
+                <span class="profile-setting-label">
+                    Пошта
+                </span>
+
+                <span class="profile-email">
+                    {{ user.email }}
+                </span>
+            </div>
+
+            <a class="profile-submit" href="{% url 'password_change' %}">
+                Змінити пароль
+            </a>
+
+        </section>
+
+        {% if not teacher %}
+
+            <section class="profile-section">
+
+                <h2>
+                    На жаль, ви поки що не вчитель(((
+                </h2>
+
+            </section>
+
+        {% else %}
+
+            <section class="profile-section">
+
+                <h2 class="section-title">
+                    Загальна інформація вчителя
+                </h2>
+
+                <div class="teacher-block">
+
+                    <h3 class="teacher-block-title">
+                        Тривалість уроків
+                    </h3>
+
+                    <div class="lesson-list">
+
+                        {% for duration in durations %}
+
+                            <div class="lesson-item">
+
+                                <div class="lesson-info">
+                                    <span class="lesson-duration">{{ duration.duration_minutes }} хв</span>
+
+                                    <span class="lesson-divider"></span>
+
+                                    <span class="lesson-coefficient">
+    <span class="lesson-coefficient-label">
+        коефіцієнт
+
+        <span class="info-icon">
+            ?
+            <span class="info-tooltip info-tooltip--left">
+                Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня
+            </span>
+        </span>
+    </span>
+
+    <span class="lesson-coefficient-value">×{{ duration.coefficient }}</span>
+</span>
+                                </div>
+
+                                <form
+                                        action="{% url 'accounts:config_profile' 'del_duration' %}"
+                                        method="post"
+                                >
+                                    {% csrf_token %}
+
+                                    <input
+                                            type="hidden"
+                                            name="value"
+                                            value="{{ duration.id }}"
+                                    >
+
+                                    <button
+                                            class="delete-btn"
+                                            type="submit"
+                                            title="Видалити"
+                                    >
+                                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                             stroke-linejoin="round">
+                                            <path d="M4 7h16"/>
+                                            <path d="M10 11v6"/>
+                                            <path d="M14 11v6"/>
+                                            <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/>
+                                            <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                                        </svg>
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        {% empty %}
+
+                            <p>
+                                Тривалість уроків поки що не додана
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <form
+                            class="lesson-add-row{% if form.errors %} has-error{% endif %}"
+                            action="{% url 'accounts:profile_details' 'teacher' %}"
+                            method="post"
+                    >
+                        {% csrf_token %}
+
+                        <div class="lesson-add-main">
+
+                            <div class="lesson-add-fields">
+                                <div class="lesson-add-field{% if form.duration_minutes.errors %} has-error{% endif %}">
+                                    <label for="id_duration_minutes">хвилин</label>
+                                    <input
+                                            type="number"
+                                            id="id_duration_minutes"
+                                            name="duration_minutes"
+                                            placeholder="0"
+                                            value="{{ form.duration_minutes.value|default:'' }}"
+                                            min="1"
+                                            required
+                                    >
+                                </div>
+
+                                <span class="lesson-divider"></span>
+
+                                <div class="lesson-add-field">
+                                    <label for="id_coefficient">коефіцієнт</label>
+                                    <input
+                                            type="number"
+                                            id="id_coefficient"
+                                            name="coefficient"
+                                            placeholder="1,0"
+                                            value="{{ form.coefficient.value|default:'' }}"
+                                            step="0.1"
+                                            min="0.1"
+                                            required
+                                    >
+                                </div>
+                            </div>
+
+                            <button class="profile-submit" type="submit">
+                                Додати
+                            </button>
+
+                        </div>
+
+                        {% for error in form.duration_minutes.errors %}
+
+                            <div class="lesson-add-error">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                                <span>{{ error }}</span>
+                            </div>
+
+                        {% endfor %}
+
+                    </form>
+
+                </div>
+
+                <div class="teacher-block">
+
+                    <h3 class="teacher-block-title">
+                        Налаштування розкладу
+                    </h3>
+
+                    <form
+                            class="form-column"
+                            action="{% url 'accounts:config_profile' 'update_break_minutes' %}"
+                            method="post"
+                    >
+                        {% csrf_token %}
+
+                        <label class="info-label">
+                            Перерва між уроками:
+                        </label>
+
+                        <input
+                                class="profile-input"
+                                type="number"
+                                name="value"
+                                placeholder="{{ teacher.break_minutes }}"
+                                min="0"
+                                required
+                        >
+
+                        <input
+                                class="profile-submit"
+                                type="submit"
+                                value="Змінити час"
+                        >
+
+                    </form>
+
+                </div>
+
+                <div class="teacher-block">
+
+                    <h3 class="teacher-block-title">
+                        Опис
+                    </h3>
+
+                    <form
+                            class="form-column"
+                            action="{% url 'accounts:config_profile' 'change_teacher_bio' %}"
+                            method="post"
+                    >
+                        {% csrf_token %}
+
+                        <textarea
+                                class="profile-textarea"
+                                name="value"
+                                placeholder="Введіть опис"
+                                rows="6"
+                        >{{ teacher.bio }}</textarea>
+
+                        <input
+                                class="profile-submit"
+                                type="submit"
+                                value="Внести зміни"
+                        >
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

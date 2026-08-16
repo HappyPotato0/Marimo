@@ -1,0 +1,82 @@
+services:
+  postgres-db:
+    image: postgres:18
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    networks:
+      - marimo-net
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'SELECT 1' || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+    networks:
+      - marimo-net
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  celery-worker:
+    build: .
+    command: celery -A ${APP} worker -l info
+    networks:
+      - marimo-net
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: postgres-db
+      DATABASE_PORT: 5432
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+    volumes:
+      - .:/Marimo
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+
+  celery-beat:
+    build: .
+    command: sh -c "python manage.py migrate --noinput && celery -A ${APP} beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    networks:
+      - marimo-net
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: postgres-db
+      DATABASE_PORT: 5432
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+    volumes:
+      - .:/Marimo
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+
+volumes:
+  postgres-data:
+    name: postgres-data
+
+networks:
+  marimo-net:
+    name: marimo-net
+
+

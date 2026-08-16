@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}I wanna be potato{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/home_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="home-page">
+
+    <section class="home-hero">
+        <div class="home-badge">
+            Закрита платформа для запису на заняття
+        </div>
+
+        <h1 class="home-title">
+            Зручна система розкладу для викладачів та учнів
+        </h1>
+
+        <p class="home-description">
+            Платформа допомагає викладачам керувати вільним часом,
+            а учням — швидко бронювати уроки у доступні слоти.
+        </p>
+    </section>
+
+    <section class="home-section">
+        <h2 class="home-section-title">
+            Для чого ця платформа
+        </h2>
+
+        <p class="home-section-text">
+            Система створена для організації індивідуальних занять.
+            Викладач додає доступний час, запрошує своїх учнів,
+            а учні самостійно обирають зручний час для уроку.
+        </p>
+    </section>
+
+    <section class="home-features">
+
+        <div class="feature-card">
+            <div class="feature-number">01</div>
+
+            <h3 class="feature-title">
+                Контроль розкладу
+            </h3>
+
+            <p class="feature-text">
+                Викладач самостійно вказує вільні слоти та керує своїм графіком.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-number">02</div>
+
+            <h3 class="feature-title">
+                Запис за запрошенням
+            </h3>
+
+            <p class="feature-text">
+                Учні отримують доступ лише після запрошення від викладача.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-number">03</div>
+
+            <h3 class="feature-title">
+                Закрита система
+            </h3>
+
+            <p class="feature-text">
+                Платформа не є відкритим каталогом — доступ мають тільки додані користувачі.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="home-section">
+
+        <h2 class="home-section-title">
+            Отримати доступ
+        </h2>
+
+        <p class="home-section-text">
+            Платформа є закритою системою.
+            Якщо ви хочете отримати доступ як викладач —
+            зв’яжіться зі мною зручним способом.
+        </p>
+
+        <div class="home-contact-links">
+
+            <a
+                class="home-contact-link"
+                href="https://t.me/kondakovvadym"
+                target="_blank"
+            >
+                <span>✈️</span>
+                <span>@kondakovvadym</span>
+            </a>
+
+            <div class="home-contact-link home-contact-static">
+                <span>✉️</span>
+                <span>kondakovvadim13@gmail.com</span>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

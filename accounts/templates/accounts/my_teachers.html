@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вчителі{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/my_teachers.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="teachers-wrapper">
+
+    <div class="teachers-header">
+
+        <h1 class="teachers-title">
+            Мої вчителі
+        </h1>
+
+    </div>
+
+    {% if teachers %}
+
+        <div class="teachers-grid">
+
+            {% for i in teachers %}
+
+                <a class="teacher-card" href="{{ i.teacher.get_absolute_url }}">
+
+                    <div class="teacher-card-top">
+
+                        <div class="teacher-avatar">
+                            {{ i.teacher.teacher.first_name|first }}{{ i.teacher.teacher.last_name|first }}
+                        </div>
+
+                        <div class="teacher-info">
+
+                            <div class="teacher-name">
+                                {{ i.teacher.teacher.first_name }}
+                                {{ i.teacher.teacher.last_name }}
+                            </div>
+
+                            <div class="teacher-email">
+                                {{ i.teacher.teacher.email }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="teacher-stats">
+
+                        <div class="teacher-stat teacher-stat--balance">
+                            <div class="teacher-stat-label">Мій баланс</div>
+                            <div class="teacher-stat-value">{{ i.balance }} ₴</div>
+                        </div>
+
+                        <div class="teacher-stat teacher-stat--price">
+                            <div class="teacher-stat-label">Ціна за урок</div>
+                            <div class="teacher-stat-value">{{ i.price }} ₴</div>
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p class="teachers-empty">
+            У вас поки немає вчителів.
+        </p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,622 @@
+.schedule-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+html, body {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.schedule-title {
+    margin: 0;
+    color: #5a4d37;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.schedule-navigation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.schedule-nav-btn {
+    padding: 10px 16px;
+    border: 1px solid rgba(63, 53, 37, .10);
+    border-radius: 12px;
+    background: rgba(255, 250, 240, .72);
+    color: #6d5d42;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(63, 53, 37, .05);
+    transition: .2s ease;
+}
+
+.schedule-nav-btn:hover {
+    background: rgba(255, 255, 255, .90);
+    transform: translateY(-1px);
+}
+
+.schedule-date-input {
+    padding: 10px 16px;
+    border: 1px solid rgba(63, 53, 37, .10);
+    border-radius: 12px;
+    background: rgba(255, 250, 240, .85);
+    color: #5a4d37;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    transition: .2s ease;
+}
+
+.schedule-date-input:hover {
+    border-color: rgba(138, 118, 80, .45);
+}
+
+.schedule-date-input:focus {
+    border-color: #8A7650;
+    box-shadow: 0 0 0 4px rgba(138, 118, 80, .12);
+}
+
+.schedule-week-range {
+    margin-bottom: 24px;
+    color: rgba(63, 53, 37, .75);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+}
+
+.schedule-card {
+    padding: 20px;
+    background: rgba(255, 250, 240, .72);
+    border: 1px solid rgba(63, 53, 37, .08);
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(63, 53, 37, .06);
+    backdrop-filter: blur(10px);
+}
+
+.schedule-day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.schedule-day-title {
+    margin: 0;
+    color: #5a4d37;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.schedule-day-date {
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(138, 118, 80, .18);
+    color: rgba(63, 53, 37, .70);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.schedule-slot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.schedule-slot-card {
+    padding: 9px 11px;
+
+    background: rgba(255, 255, 255, .65);
+    border: 1px solid rgba(63, 53, 37, .08);
+    border-radius: 9px;
+}
+
+.schedule-slot-card--pending {
+    background: rgba(244, 231, 191, .35);
+    border-color: rgba(186, 117, 23, .40);
+}
+
+.schedule-slot-card--paid {
+    background: rgba(201, 143, 74, .22);
+    border-color: rgba(201, 143, 74, .45);
+}
+
+.schedule-slot-card--confirmed {
+    background: rgba(142, 151, 125, .24);
+    border-color: rgba(120, 129, 104, .45);
+}
+
+.schedule-slot-card--cancelled {
+    background: rgba(184, 92, 92, .14);
+    border-color: rgba(184, 92, 92, .35);
+}
+
+.schedule-slot-time {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 9px;
+
+    background: rgba(255, 255, 255, .55);
+    border-radius: 6px;
+
+    color: #3f3525;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    margin-bottom: 6px;
+}
+
+.schedule-slot-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.schedule-slot-student {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3f3525;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.schedule-slot-status,
+.schedule-cancelled-label {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 9px;
+
+    border-radius: 6px;
+
+    color: #fffdf7;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.schedule-status--pending {
+    background: #ba7517;
+}
+
+.schedule-status--paid {
+    background: #c98f4a;
+}
+
+.schedule-status--confirmed {
+    background: #8E977D;
+}
+
+.schedule-cancelled-label {
+    background: #b85c5c;
+}
+
+.schedule-slot-actions {
+    margin-top: 8px;
+}
+
+.schedule-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.schedule-confirm-form {
+    margin: 0;
+}
+
+.schedule-confirm-btn {
+    width: 100%;
+    background: #6d8f5b;
+    color: #fffdf7;
+}
+
+.schedule-confirm-btn:hover {
+    background: #5c7a4c;
+    transform: translateY(-1px);
+}
+
+.schedule-empty {
+    margin: 0;
+    color: rgba(63, 53, 37, .72);
+    line-height: 1.7;
+}
+
+.schedule-empty--small {
+    font-size: 12px;
+}
+
+.schedule-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 7px;
+
+    color: #fffdf7;
+
+    flex-shrink: 0;
+
+    transition: .2s ease;
+}
+
+.schedule-icon-add {
+    width: 26px;
+    height: 26px;
+    background: #8E977D;
+    flex-shrink: 0;
+}
+
+.schedule-icon-add:hover {
+    background: #788168;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+    .schedule-navigation {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .schedule-date-form,
+    .schedule-date-input,
+    .schedule-nav-btn {
+        width: 100%;
+    }
+
+    .schedule-date-input,
+    .schedule-nav-btn {
+        text-align: center;
+    }
+}
+
+/* ===== Модальне вікно (спільне для всіх кроків бронювання) ===== */
+
+.slot-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(63, 53, 37, .45);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+
+    padding: 20px;
+}
+
+.slot-modal-card {
+    background: #f7f3e8;
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    width: 100%;
+    max-width: 400px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.slot-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 4px;
+}
+
+.slot-modal-title {
+    color: #5a4d37;
+
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.slot-modal-close {
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 7px;
+
+    background: rgba(63, 53, 37, .08);
+    color: #5a4d37;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    flex-shrink: 0;
+}
+
+.slot-modal-close:hover {
+    background: rgba(63, 53, 37, .15);
+}
+
+.slot-modal-subtitle {
+    margin: 0 0 16px;
+
+    color: rgba(63, 53, 37, .65);
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ===== Бейджі контексту (дата, тривалість, викладач) ===== */
+
+.context-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    margin: 14px 0 10px;
+}
+
+.slot-modal-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 12px 5px 9px;
+
+    border-radius: 999px;
+
+    background: rgba(141, 151, 125, .22);
+    color: #536147;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.slot-modal-date-badge svg {
+    flex-shrink: 0;
+}
+
+.duration-info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 12px 5px 9px;
+
+    border-radius: 999px;
+
+    background: rgba(201, 143, 74, .22);
+    color: #8a5f2f;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.teacher-info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-bottom: 16px;
+
+    padding: 6px 13px 6px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(138, 118, 80, .18);
+    color: #6d5d42;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ===== Форма всередині модалки ===== */
+
+.slot-modal-form p {
+    margin: 0 0 12px;
+}
+
+.slot-modal-form label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: rgba(63, 53, 37, .6);
+
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.slot-modal-form input,
+.slot-modal-form select,
+.slot-modal-form textarea {
+    box-sizing: border-box;
+    width: 100%;
+
+    height: 38px;
+
+    border: 1px solid rgba(63, 53, 37, .15);
+    border-radius: 8px;
+
+    background: #fffdf7;
+
+    color: #3f3525;
+
+    font-size: 13px;
+    font-family: inherit;
+
+    padding: 0 10px;
+}
+
+.slot-modal-form textarea {
+    height: auto;
+
+    padding: 8px 10px;
+
+    resize: vertical;
+}
+
+.slot-modal-form button[type="submit"] {
+    width: 100%;
+
+    margin-top: 6px;
+
+    padding: 11px 0;
+
+    font-size: 14px;
+}
+
+/* ===== Список викладачів (крок 1 бронювання) ===== */
+
+.teacher-choice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.teacher-choice-block {
+    padding: 12px 14px;
+
+    background: rgba(255, 255, 255, .55);
+    border: 1px solid rgba(63, 53, 37, .08);
+    border-radius: 10px;
+}
+
+.teacher-choice-name {
+    margin-bottom: 8px;
+
+    color: #3f3525;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* ===== Чипси тривалості уроку ===== */
+
+.duration-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.duration-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 7px 12px;
+
+    background: rgba(141, 151, 125, .18);
+    border: 1px solid rgba(120, 129, 104, .35);
+    border-radius: 999px;
+
+    color: #536147;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.duration-chip:hover {
+    background: rgba(141, 151, 125, .32);
+    transform: translateY(-1px);
+}
+
+/* ===== Список вільних слотів (крок 3 бронювання) ===== */
+
+.time-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.time-chip-form {
+    margin: 0;
+}
+
+.time-chip {
+    padding: 9px 14px;
+
+    border: 1px solid rgba(120, 129, 104, .35);
+    border-radius: 999px;
+
+    background: rgba(141, 151, 125, .18);
+    color: #536147;
+
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.time-chip:hover {
+    background: rgba(141, 151, 125, .32);
+    transform: translateY(-1px);
+}
+
+.schedule-slot-price {
+    margin-top: 4px;
+
+    color: #4c4232;
+
+    font-size: 12px;
+    font-weight: 700;
+}

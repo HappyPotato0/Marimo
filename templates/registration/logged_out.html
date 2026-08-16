@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Вихід{% endblock %}
+
+{% block content %}
+
+    <div class="logout-wrapper">
+
+        <section class="logout-card">
+
+            <div class="logout-icon">
+                ✓
+            </div>
+
+            <h1 class="logout-title">
+                Ви вийшли з облікового запису
+            </h1>
+
+            <p class="logout-text">
+                Ви успішно вийшли із системи.
+            </p>
+
+            <a class="logout-btn" href="{% url 'login' %}">
+                Увійти знову
+            </a>
+
+        </section>
+
+    </div>
+
+    <style>
+
+        .logout-wrapper {
+            max-width: 520px;
+        }
+
+        .logout-card {
+            padding: 38px 32px;
+
+            text-align: center;
+
+            background: rgba(255, 250, 240, .72);
+
+            border: 1px solid rgba(63, 53, 37, .08);
+            border-radius: 22px;
+
+            box-shadow: 0 8px 22px rgba(63, 53, 37, .08);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-icon {
+            width: 78px;
+            height: 78px;
+
+            margin: 0 auto 22px;
+
+            border-radius: 50%;
+
+            background: rgba(142, 151, 125, .18);
+
+            color: #6f7a61;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 34px;
+            font-weight: 700;
+
+            box-shadow: 0 4px 12px rgba(63, 53, 37, .08);
+        }
+
+        .logout-title {
+            margin-top: 0;
+            margin-bottom: 12px;
+
+            color: #5a4d37;
+
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .logout-text {
+            margin-bottom: 30px;
+
+            color: rgba(63, 53, 37, .72);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+        .logout-btn {
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            background: #8A7650;
+
+            color: #fffdf7;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+            box-shadow: 0 4px 12px rgba(63, 53, 37, .08);
+
+            transition: .2s ease;
+        }
+
+        .logout-btn:hover {
+            background: #756342;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 8px 18px rgba(63, 53, 37, .12);
+        }
+
+        @media (max-width: 600px) {
+            .logout-card {
+                padding: 28px 20px;
+            }
+
+            .logout-title {
+                font-size: 24px;
+            }
+
+            .logout-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+{% endblock %}

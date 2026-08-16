@@ -1,0 +1,7 @@
+pip freeze > requirements.txt
+
+pip install django-environ
+pip install celery
+pip install amqp
+pip install django_celery_beat
+pip install django_celery_results

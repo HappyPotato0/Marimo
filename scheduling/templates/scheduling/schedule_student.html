@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Мій розклад{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'scheduling/css/schedule_student.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="schedule-wrapper">
+
+        <div class="schedule-header">
+            <h1 class="schedule-title">
+                Мій розклад
+            </h1>
+        </div>
+
+        <div class="schedule-navigation">
+
+            <a class="schedule-nav-btn" href="?day={{ previous_week|date:'Y-m-d' }}">
+                ← Попередній тиждень
+            </a>
+
+            <form method="get" class="schedule-date-form">
+                <input
+                        class="schedule-date-input"
+                        type="date"
+                        name="day"
+                        value="{{ selected_day|date:'Y-m-d' }}"
+                        onchange="this.form.submit()"
+                >
+            </form>
+
+            <a class="schedule-nav-btn" href="?day={{ next_week|date:'Y-m-d' }}">
+                Наступний тиждень →
+            </a>
+
+        </div>
+
+        <div class="schedule-week-range">
+            {{ week_start|date:"d.m.Y" }} — {{ week_end|date:"d.m.Y" }}
+        </div>
+
+        <div class="schedule-grid">
+
+            {% for day in week %}
+
+                <section class="schedule-card">
+
+                    <div class="schedule-day-header">
+                        <h2 class="schedule-day-title">
+                            {{ day.weekday_name }}
+                        </h2>
+
+                        <a class="schedule-icon-btn schedule-icon-add"
+                           href="{% url 'scheduling:teacher_choice' day.date|date:'Y-m-d' %}"
+                           title="Взяти урок">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                                 stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M12 5v14"/>
+                                <path d="M5 12h14"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="schedule-day-date">
+                        {{ day.date|date:"d.m.Y" }}
+                    </div>
+
+                    {% if day.slots %}
+
+                        <div class="schedule-slot-list">
+
+                            {% for slot in day.slots %}
+
+                                {% if slot.status == 'cancelled' %}
+
+                                    <div class="schedule-slot-card schedule-slot-card--cancelled">
+                                        <span class="schedule-slot-time">{{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}</span>
+
+                                        <div class="schedule-slot-name-row">
+                                            <span class="schedule-slot-student">{{ slot.student }}</span>
+                                            <span class="schedule-cancelled-label">Скасовано</span>
+                                        </div>
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="schedule-slot-card schedule-slot-card--{{ slot.paid_status }}">
+                                        <span class="schedule-slot-time">{{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}</span>
+
+                                        <div class="schedule-slot-name-row">
+                                            <span class="schedule-slot-student">{{ slot.student }}</span>
+                                            <span class="schedule-slot-status schedule-status--{{ slot.paid_status }}">
+            {{ slot.get_paid_status_display }}
+        </span>
+                                        </div>
+
+                                        {% if slot.price %}
+                                            <div class="schedule-slot-price">
+                                                {{ slot.price }} ₴
+                                            </div>
+                                        {% endif %}
+
+                                        {% if slot.paid_status == 'pending' %}
+                                            <div class="schedule-slot-actions">
+                                                <form
+                                                        class="schedule-confirm-form"
+                                                        action="{% url 'scheduling:confirm_payment_by_student' slot.id %}"
+                                                        method="post"
+                                                >
+                                                    {% csrf_token %}
+
+                                                    <button class="schedule-btn schedule-confirm-btn" type="submit">
+                                                        Оплатив
+                                                    </button>
+
+                                                </form>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="schedule-empty">
+                            Немає слотів
+                        </p>
+
+                    {% endif %}
+
+                </section>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+    {% block modal %}{% endblock %}
+{% endblock %}
