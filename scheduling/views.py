@@ -51,7 +51,8 @@ def add_slot(request, date):
         if form.is_valid():
             obj = form.save(commit=False)
             if form.cleaned_data['student']:
-                teacher_student = TeacherStudent.objects.filter(student=form.cleaned_data['student']).first()
+                teacher_student = TeacherStudent.objects.get(student=form.cleaned_data['student'],
+                                                                teacher=teacher_profile)
                 coefficient = form.cleaned_data['duration'].coefficient
                 obj.price = round(teacher_student.price * coefficient, 2)
             try:
@@ -84,7 +85,8 @@ def update_slot(request, pk):
         if form.is_valid():
             obj = form.save(commit=False)
             if form.cleaned_data['student']:
-                teacher_student = TeacherStudent.objects.filter(student=form.cleaned_data['student']).first()
+                teacher_student = TeacherStudent.objects.get(student=form.cleaned_data['student'],
+                                                             teacher=teacher_profile)
                 coefficient = form.cleaned_data['duration'].coefficient
                 obj.price = round(teacher_student.price * coefficient, 2)
             try:

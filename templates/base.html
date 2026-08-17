@@ -163,25 +163,23 @@
 
         <footer class="footer">
             <div class="footer-card">
-
-                <h3 class="footer-title">
-                    Зв’язатися з творцем сайту
-                </h3>
-
-                <p class="footer-text">
-                    Якщо у вас є запитання, пропозиції або ви знайшли помилку —
-                    напишіть мені зручним способом.
-                </p>
+                <div class="footer-message">
+                    <i class="ti ti-message-2 footer-icon" aria-hidden="true"></i>
+                    <span class="footer-text">
+                        Знайшли баг або є ідея? Пишіть мені сюди.
+                    </span>
+                </div>
 
                 <div class="footer-links">
-                    <a class="footer-social" href="https://t.me/kondakovvadym" target="_blank">
+                    <a class="footer-social footer-social--telegram" href="https://t.me/kondakovvadym" target="_blank">
+                        <img src="{% static 'images/telegram_logo.svg' %}" alt="" class="footer-icon-svg" width="17" height="17">
                         @kondakovvadym
                     </a>
                     <div class="footer-social footer-social--static">
+                        <img src="{% static 'images/mail.svg' %}" alt="" class="footer-icon-svg" width="17" height="17">
                         kondakovvadim13@gmail.com
                     </div>
                 </div>
-
             </div>
         </footer>
 
