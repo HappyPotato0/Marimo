@@ -1,8 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
-from accounts.models import TeacherLessonDuration, TeacherStudent, BalanceAction
+from accounts.models import TeacherLessonDuration, TeacherStudent, BalanceAction, StudentProfile
 
 
 class AddDurationForm(forms.ModelForm):
@@ -50,3 +51,26 @@ class BalanceActionForm(forms.ModelForm):
                 'placeholder': "Коментар (необов'язково)",
             }),
         }
+
+class AddStudentForm(forms.ModelForm):
+    price = forms.IntegerField(
+        label="Ціна за урок",
+        required=False,
+        min_value=0,
+        max_value=10000,
+        widget=forms.NumberInput(attrs={
+            'placeholder': "Введіть ціну за 1 урок (не обов'язково)",
+        }),
+    )
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")
+        widgets = {
+            "email": forms.EmailInput()
+        }
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        if not email:
+            self.add_error("email", ValidationError(
+                "Введіть пошту!"))

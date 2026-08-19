@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
+import secrets
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from django.core.mail import send_mail
 
-from .forms import AddDurationForm, ChangePriceForm, BalanceActionForm
+from .forms import AddDurationForm, ChangePriceForm, BalanceActionForm, AddStudentForm
 from .services import STUDENT_ACTIONS, TEACHER_ACTIONS
 from .decorators import teacher_only, student_only
 from .models import TeacherLessonDuration, TeacherStudent, BalanceAction
 from accounts.models import TeacherProfile, StudentProfile
+from django.contrib.auth.models import User
 
 
 def home_page(request):
@@ -100,7 +103,6 @@ def my_students(request):
     teacher_profile = get_object_or_404(TeacherProfile, teacher=request.user)
     students = TeacherStudent.objects.filter(teacher=teacher_profile).select_related('student', 'student__student')
 
-    print(students)
     return render(request, 'accounts/my_students.html', {
         'students': students
     })
@@ -161,7 +163,6 @@ def my_teachers(request):
     student_profile = StudentProfile.objects.get(student=request.user)
     teachers = TeacherStudent.objects.filter(student=student_profile).select_related('teacher', 'teacher__teacher')
 
-    print(teachers)
     return render(request, 'accounts/my_teachers.html', {
         'teachers': teachers
     })
@@ -180,4 +181,69 @@ def teacher_details(request, pk):
     return render(request, 'accounts/teacher_detail.html', {
         'teacher_student': teacher_student,
         'transaction_history': transaction_history,
+    })
+
+
+@teacher_only
+def add_student(request):
+    teacher_profile = get_object_or_404(TeacherProfile, teacher=request.user)
+    students = TeacherStudent.objects.filter(teacher=teacher_profile).select_related('student', 'student__student')
+
+    if request.method == 'POST':
+        form = AddStudentForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+
+            user_created, student_created, link_created = False, False, False
+
+            '''1. Перевірити User'''
+            check_user = User.objects.filter(email=email).first()
+            if not check_user:
+                random_password = secrets.token_urlsafe(12)
+                check_user = User.objects.create_user(
+                    email=email,
+                    username=email,
+                    first_name=form.cleaned_data['first_name'],
+                    last_name=form.cleaned_data['last_name'],
+                    password=random_password,
+                )
+                user_created = True
+
+            '''2. Перевірити StudentProfile'''
+            check_student = StudentProfile.objects.filter(student=check_user).first()
+            if not check_student:
+                check_student  = StudentProfile.objects.create(student=check_user)
+                student_created = True
+
+            '''3. Перевірити TeacherStudent'''
+            link = TeacherStudent.objects.filter(teacher=teacher_profile, student=check_student).first()
+            if not link:
+                link = TeacherStudent.objects.create(
+                    teacher=teacher_profile,
+                    student=check_student,
+                    price=form.cleaned_data['price'],
+                )
+                link_created = True
+
+            if user_created:
+                message = f'''Тебе запросив учитель: {teacher_profile.teacher.first_name} {teacher_profile.teacher.last_name}! Твій тимчасовий пароль: {random_password} на сайті https://www.iwannabepotato.com/'''
+            elif student_created:
+                message = f'''Тебе зробили учнем, твій новий викладач: {teacher_profile.teacher.first_name} {teacher_profile.teacher.last_name} на сайті https://www.iwannabepotato.com/'''
+            elif link_created:
+                message = f'''Тебе додали до учнів {teacher_profile.teacher.first_name} {teacher_profile.teacher.last_name} на сайті https://www.iwannabepotato.com/'''
+            else:
+                messages.warning(request, "Цей учень же існує в вашому списку!")
+                return redirect('accounts:my_students')
+            from .tasks import invite_student
+            invite_student.delay(message=message,email=[email])
+
+
+            #messages.success(request, "Учня додано, йому прийде лист з запрошенням на вказану пошту!")
+            return redirect("accounts:my_students")
+    else:
+        form = AddStudentForm()
+
+    return render(request, 'accounts/profile/add_student.html', {
+        'students': students,
+        'form': form,
     })

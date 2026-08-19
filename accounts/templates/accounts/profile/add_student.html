@@ -1,0 +1,88 @@
+{% extends "accounts/my_students.html" %}
+
+{% block modal %}
+
+    <div class="slot-form-overlay">
+
+        <div class="slot-modal-card">
+
+            <div class="slot-modal-header">
+                <div class="slot-modal-heading">
+                    <div class="slot-modal-icon">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M19 8v6"/>
+                            <path d="M22 11h-6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="slot-modal-title">Додати учня</div>
+                        <div class="slot-modal-subtitle">Створіть профіль нового учня</div>
+                    </div>
+                </div>
+                <a class="slot-modal-close" href="{% url 'accounts:my_students' %}">✕</a>
+            </div>
+
+            <div class="slot-modal-divider"></div>
+
+            <form method="post" class="slot-modal-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="slot-form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="slot-modal-row">
+
+                    <p>
+                        <label for="{{ form.first_name.id_for_label }}">Ім'я:</label>
+                        {{ form.first_name.errors }}
+                        {{ form.first_name }}
+                    </p>
+
+                    <p>
+                        <label for="{{ form.last_name.id_for_label }}">Прізвище:</label>
+                        {{ form.last_name.errors }}
+                        {{ form.last_name }}
+                    </p>
+
+                </div>
+
+                <p>
+                    <label for="{{ form.price.id_for_label }}">Ціна за урок:</label>
+                    {{ form.price.errors }}
+                    {{ form.price }}
+                </p>
+
+                <p>
+                    <label for="{{ form.email.id_for_label }}">Email учня:</label>
+                    {{ form.email.errors }}
+                    <div class="slot-input-icon-wrap">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="slot-input-icon">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="m22 6-10 7L2 6"/>
+                        </svg>
+                        {{ form.email }}
+                    </div>
+                    <span class="slot-field-hint">Учень отримає запрошення на цю пошту</span>
+                </p>
+
+                <div class="slot-modal-actions">
+                    <a class="schedule-btn schedule-cancel-btn" href="{% url 'accounts:my_students' %}">Скасувати</a>
+                    <button class="schedule-btn schedule-confirm-btn" type="submit">Зберегти</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -44,11 +44,13 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'django_celery_beat',
     'django_celery_results',
+    'debug_toolbar',
     'accounts.apps.AccountsConfig',
     'scheduling.apps.SchedulingConfig',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,6 +134,11 @@ STATICFILES_DIRS = [
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 
 MAILERS = {
     'default': {
@@ -163,3 +170,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

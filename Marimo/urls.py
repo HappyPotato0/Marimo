@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('', include('accounts.urls', namespace='accounts')),
     path('scheduling/', include('scheduling.urls', namespace='scheduling')),
+    path('__debug__/', include('debug_toolbar.urls')),
 
 ]

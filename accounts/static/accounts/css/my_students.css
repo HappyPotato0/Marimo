@@ -53,7 +53,7 @@
 
 .students-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     gap: 14px;
 }
 
@@ -152,4 +152,308 @@
     color: rgba(63, 53, 37, .72);
 
     line-height: 1.7;
+}
+
+.slot-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(63, 53, 37, .45);
+
+    z-index: 100;
+}
+
+.slot-modal-card {
+    width: 100%;
+    max-width: 500px;
+
+    background: #f7f3e8;
+
+    border-radius: 16px;
+
+    padding: 28px 32px;
+
+    box-shadow: 0 20px 50px rgba(63, 53, 37, .25);
+}
+
+.slot-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 4px;
+}
+
+.slot-modal-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slot-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 34px;
+    height: 34px;
+
+    background: #788168;
+    border-radius: 9px;
+
+    color: #fffdf7;
+}
+
+.slot-modal-subtitle {
+    margin-top: 1px;
+
+    color: rgba(63, 53, 37, .55);
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.slot-modal-divider {
+    height: 1px;
+
+    background: rgba(63, 53, 37, .10);
+
+    margin: 16px 0;
+}
+
+.slot-modal-title {
+    color: #3f3525;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.slot-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    background: rgba(63, 53, 37, .08);
+    border-radius: 8px;
+
+    color: #5a4d37;
+
+    font-size: 14px;
+    text-decoration: none;
+
+    transition: .15s ease;
+}
+
+.slot-modal-close:hover {
+    background: rgba(63, 53, 37, .16);
+}
+
+.slot-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.slot-modal-form p {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin: 0;
+}
+
+.slot-modal-row {
+    display: flex;
+    gap: 12px;
+}
+
+.slot-modal-row p {
+    flex: 1;
+    min-width: 0;
+}
+
+.slot-modal-form label {
+    color: #5a4d37;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.slot-modal-form input,
+.slot-modal-form select,
+.slot-modal-form textarea {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    background: rgba(255, 255, 255, .72);
+
+    border: 1px solid rgba(63, 53, 37, .14);
+    border-radius: 10px;
+
+    color: #3f3525;
+
+    font-size: 14px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition: .15s ease;
+}
+
+.slot-modal-form input:focus,
+.slot-modal-form select:focus,
+.slot-modal-form textarea:focus {
+    border-color: #788168;
+
+    box-shadow: 0 0 0 3px rgba(120, 129, 104, .14);
+}
+
+.slot-form-errors {
+    margin: 8px 0 14px;
+
+    color: #8a4b42;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.schedule-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: .15s ease;
+}
+
+.schedule-confirm-btn {
+    background: #6d8f5b;
+
+    color: #fffdf7;
+}
+
+.schedule-confirm-btn:hover {
+    background: #5c7a4c;
+
+    transform: translateY(-1px);
+}
+
+.slot-modal-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 6px;
+
+    padding: 4px 10px;
+
+    background: rgba(120, 129, 104, .14);
+    border-radius: 7px;
+
+    color: #4d5540;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.slot-input-icon-wrap {
+    position: relative;
+}
+
+.slot-input-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: rgba(63, 53, 37, .45);
+
+    pointer-events: none;
+}
+
+.slot-input-icon-wrap input {
+    padding-left: 33px !important;
+}
+
+.slot-field-hint {
+    color: rgba(63, 53, 37, .6);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    margin-top: 2px;
+}
+
+.slot-modal-actions {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 6px;
+}
+
+.slot-modal-actions .schedule-btn {
+    flex: 1;
+}
+
+.slot-modal-actions .schedule-confirm-btn {
+    flex: 2;
+}
+
+.schedule-cancel-btn {
+    background: transparent;
+
+    border: 1px solid rgba(63, 53, 37, .16);
+
+    color: #5a4d37;
+}
+
+.schedule-cancel-btn:hover {
+    background: rgba(63, 53, 37, .06);
+}
+
+.slot-form-errors ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.slot-modal-form .errorlist {
+    margin: 0 0 8px;
+    padding: 0;
+
+    list-style: none;
+}
+
+.slot-modal-form .errorlist li {
+    color: #8a4b42;
+
+    font-size: 13px;
+    font-weight: 700;
 }
