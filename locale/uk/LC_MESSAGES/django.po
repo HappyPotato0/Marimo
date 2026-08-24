@@ -1,0 +1,1138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-24 18:00+0200\n"
+"PO-Revision-Date: 2026-08-24 19:13+0300\n"
+"Last-Translator: Олександр Іващенко <komikshow8@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Translated-Using: django-rosetta 0.10.3\n"
+
+#: .\Marimo\settings.py:130
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: .\Marimo\settings.py:131
+msgid "English"
+msgstr "Англійська"
+
+#: .\Marimo\settings.py:132
+msgid "French"
+msgstr "Французька"
+
+#: .\Marimo\urls.py:31
+msgid "scheduling/"
+msgstr "розклад/"
+
+#: .\accounts\decorators.py:13 .\accounts\decorators.py:34
+msgid "Потрібно авторизуватися"
+msgstr "Потрібно авторизуватися"
+
+#: .\accounts\decorators.py:18 .\accounts\decorators.py:39
+#: .\accounts\views.py:71
+#| msgid "Профіль"
+msgid "Профіль не знайдено"
+msgstr "Профіль не знайдено"
+
+#: .\accounts\decorators.py:22
+msgid "Доступ дозволений лише викладачу"
+msgstr "Доступ дозволений лише викладачу"
+
+#: .\accounts\decorators.py:43
+msgid "Доступ дозволений лише учню"
+msgstr "Доступ дозволений лише учню"
+
+#: .\accounts\forms.py:15
+#| msgid "Тривалість уроку"
+msgid "Тривалість уроку (хв)"
+msgstr "Тривалість уроку (хв)"
+
+#: .\accounts\forms.py:16
+msgid "Коефіцієнт"
+msgstr "Коефіцієнт"
+
+#: .\accounts\forms.py:42
+msgid "Такий час вже існує!"
+msgstr "Такий час вже існує!"
+
+#: .\accounts\forms.py:57
+msgid "Сума (наприклад -100 або 100)"
+msgstr "Сума (наприклад -100 або 100)"
+
+#: .\accounts\forms.py:67
+msgid "Коментар (необов'язково)"
+msgstr "Коментар (необов'язково)"
+
+#: .\accounts\forms.py:74 .\accounts\templates\accounts\my_teachers.html:60
+#: .\accounts\templates\accounts\student_detail.html:38
+#: .\accounts\templates\accounts\teacher_detail.html:40
+msgid "Ціна за урок"
+msgstr "Ціна за урок"
+
+#: .\accounts\forms.py:79
+msgid "Введіть ціну за 1 урок (не обов'язково)"
+msgstr "Введіть ціну за 1 урок (не обов'язково)"
+
+#: .\accounts\forms.py:90
+#: .\accounts\templates\accounts\profile\profile_student.html:41
+#: .\accounts\templates\accounts\profile\profile_teacher.html:41
+msgid "Ім'я"
+msgstr "Ім'я"
+
+#: .\accounts\forms.py:91
+#: .\accounts\templates\accounts\profile\profile_student.html:74
+#: .\accounts\templates\accounts\profile\profile_teacher.html:68
+msgid "Прізвище"
+msgstr "Прізвище"
+
+#: .\accounts\forms.py:92
+msgid "Email учня"
+msgstr "Email учня"
+
+#: .\accounts\forms.py:100
+msgid "Введіть пошту!"
+msgstr "Введіть пошту!"
+
+#: .\accounts\models.py:79
+msgid "Нарахування вчителем"
+msgstr "Нарахування вчителем"
+
+#: .\accounts\models.py:80
+msgid "Списання за урок"
+msgstr "Списання за урок"
+
+#: .\accounts\models.py:81
+msgid "Скасований урок"
+msgstr "Скасований урок"
+
+#: .\accounts\models.py:82
+msgid "Відновлення уроку"
+msgstr "Відновлення уроку"
+
+#: .\accounts\models.py:83
+msgid "Списання вчителем"
+msgstr "Списання вчителем"
+
+#: .\accounts\services.py:14
+msgid "Ім'я змінено"
+msgstr "Ім'я змінено"
+
+#: .\accounts\services.py:20
+msgid "Прізвище змінено"
+msgstr "Прізвище змінено"
+
+#: .\accounts\services.py:26
+msgid "Немає доступу"
+msgstr "Прізвище змінено"
+
+#: .\accounts\services.py:29
+msgid "Час не знайдено"
+msgstr "Час не знайдено"
+
+#: .\accounts\services.py:30
+msgid "Час видалено"
+msgstr "Час видалено"
+
+#: .\accounts\services.py:36
+#| msgid "Такий час вже існує!"
+msgid "Такий час вже є"
+msgstr "Такий час вже є"
+
+#: .\accounts\services.py:38
+msgid "Час додано"
+msgstr "Час додано"
+
+#: .\accounts\services.py:45
+msgid "Час перерви між уроками змінено"
+msgstr "Час перерви між уроками змінено"
+
+#: .\accounts\services.py:52 .\accounts\services.py:59
+msgid "Опис змінено"
+msgstr "Опис змінено"
+
+#: .\accounts\templates\accounts\home_page.html:18
+msgid "Приватний доступ · тільки за запрошенням"
+msgstr "Приватний доступ · тільки за запрошенням"
+
+#: .\accounts\templates\accounts\home_page.html:22
+msgid "Розклад занять, який не забирає час на організацію"
+msgstr "Розклад занять, який не забирає час на організацію"
+
+#: .\accounts\templates\accounts\home_page.html:26
+msgid ""
+"\n"
+"                        Викладач бачить усіх учнів і оплати в одному місці.\n"
+"                        Учень бронює зручний час за кілька секунд — без дзвінків і перепитувань.\n"
+"                    "
+msgstr ""
+"\n"
+"Викладач бачить усіх учнів і оплати в одному місці.\n"
+"Учень бронює зручний час за кілька секунд — без дзвінків і перепитувань."
+
+#: .\accounts\templates\accounts\home_page.html:34
+msgid "Розклад викладача в системі"
+msgstr "Розклад викладача в системі"
+
+#: .\accounts\templates\accounts\home_page.html:40
+msgid "Для чого ця платформа"
+msgstr "Для чого ця платформа"
+
+#: .\accounts\templates\accounts\home_page.html:44
+msgid ""
+"\n"
+"                    Більше не треба тримати розклад у голові чи в чаті з учнями.\n"
+"                    Викладач один раз налаштовує вільний час — і кожен учень\n"
+"                    сам обирає зручний слот, а система відстежує, хто оплатив, а хто ще ні.\n"
+"                "
+msgstr ""
+"\n"
+"Більше не треба тримати розклад у голові чи в чаті з учнями.\n"
+"Викладач один раз налаштовує вільний час — і кожен учень\n"
+"сам обирає зручний слот, а система відстежує, хто оплатив, а хто ще ні."
+
+#: .\accounts\templates\accounts\home_page.html:58
+msgid "Контроль розкладу"
+msgstr "Контроль розкладу"
+
+#: .\accounts\templates\accounts\home_page.html:62
+msgid "Викладач самостійно вказує вільні слоти та керує своїм графіком."
+msgstr "Викладач самостійно вказує вільні слоти та керує своїм графіком."
+
+#: .\accounts\templates\accounts\home_page.html:70
+msgid "Запис за запрошенням"
+msgstr "Запис за запрошенням"
+
+#: .\accounts\templates\accounts\home_page.html:74
+msgid "Учні отримують доступ лише після запрошення від викладача."
+msgstr "Учні отримують доступ лише після запрошення від викладача."
+
+#: .\accounts\templates\accounts\home_page.html:82
+msgid "Закрита система"
+msgstr "Закрита система"
+
+#: .\accounts\templates\accounts\home_page.html:86
+msgid ""
+"Платформа не є відкритим каталогом — доступ мають тільки додані користувачі."
+msgstr ""
+"Платформа не є відкритим каталогом — доступ мають тільки додані користувачі."
+
+#: .\accounts\templates\accounts\home_page.html:94
+msgid "Як це виглядає"
+msgstr "Як це виглядає"
+
+#: .\accounts\templates\accounts\home_page.html:98
+msgid "Натисніть на приклад, щоб побачити його у великому розмірі"
+msgstr "Натисніть на приклад, щоб побачити його у великому розмірі"
+
+#: .\accounts\templates\accounts\home_page.html:103
+msgid "Розклад учня з оплатами"
+msgstr "Розклад учня з оплатами"
+
+#: .\accounts\templates\accounts\home_page.html:105
+msgid "Учень бачить свої уроки та статус оплати"
+msgstr "Учень бачить свої уроки та статус оплати"
+
+#: .\accounts\templates\accounts\home_page.html:110
+#| msgid "Тривалість уроку"
+msgid "Вибір часу уроку"
+msgstr "Вибір часу уроку"
+
+#: .\accounts\templates\accounts\home_page.html:112
+msgid "Бронювання уроку — учень обирає зручний час"
+msgstr "Бронювання уроку — учень обирає зручний час"
+
+#: .\accounts\templates\accounts\home_page.html:117
+#: .\accounts\templates\accounts\home_page.html:119
+msgid "Баланс і історія транзакцій учня"
+msgstr "Баланс і історія транзакцій учня"
+
+#: .\accounts\templates\accounts\home_page.html:128
+msgid "Отримати доступ"
+msgstr "Отримати доступ"
+
+#: .\accounts\templates\accounts\home_page.html:132
+msgid ""
+"\n"
+"                    Платформа є закритою системою.\n"
+"                    Якщо ви хочете отримати доступ як викладач —\n"
+"                    мої контакти для зв'язку вказані внизу сторінки.\n"
+"                "
+msgstr ""
+"\n"
+"Платформа є закритою системою.\n"
+"Якщо ви хочете отримати доступ як викладач —\n"
+"мої контакти для зв'язку вказані внизу сторінки."
+
+#: .\accounts\templates\accounts\my_students.html:5
+msgid "Учні"
+msgstr "Учні"
+
+#: .\accounts\templates\accounts\my_students.html:18 .\templates\base.html:114
+msgid "Мої учні"
+msgstr "Мої учні"
+
+#: .\accounts\templates\accounts\my_students.html:28
+#: .\accounts\templates\accounts\profile\add_student.html:23
+#| msgid "Мої учні"
+msgid "Додати учня"
+msgstr "Додати учня"
+
+#: .\accounts\templates\accounts\my_students.html:53
+msgid "₴/урок"
+msgstr "₴/урок"
+
+#: .\accounts\templates\accounts\my_students.html:59
+msgid "Баланс"
+msgstr "Баланс"
+
+#: .\accounts\templates\accounts\my_students.html:72
+msgid "У вас поки немає учнів."
+msgstr "У вас поки немає учнів."
+
+#: .\accounts\templates\accounts\my_teachers.html:5
+#| msgid "Мої вчителі"
+msgid "Вчителі"
+msgstr "Вчителі"
+
+#: .\accounts\templates\accounts\my_teachers.html:18 .\templates\base.html:132
+msgid "Мої вчителі"
+msgstr "Мої вчител"
+
+#: .\accounts\templates\accounts\my_teachers.html:55
+#: .\accounts\templates\accounts\teacher_detail.html:18
+msgid "Мій баланс"
+msgstr "Мій баланс"
+
+#: .\accounts\templates\accounts\my_teachers.html:75
+#| msgid "Списання вчителем"
+msgid "У вас поки немає вчителів."
+msgstr "У вас поки немає вчителів."
+
+#: .\accounts\templates\accounts\profile\add_student.html:24
+msgid "Створіть профіль нового учня"
+msgstr "Створіть профіль нового учня"
+
+#: .\accounts\templates\accounts\profile\add_student.html:75
+msgid "Учень отримає запрошення на цю пошту"
+msgstr "Учень отримає запрошення на цю пошту"
+
+#: .\accounts\templates\accounts\profile\add_student.html:79
+#| msgid "Скасовано"
+msgid "Скасувати"
+msgstr "Скасувати"
+
+#: .\accounts\templates\accounts\profile\add_student.html:80
+#: .\accounts\templates\accounts\student_detail.html:41
+#: .\scheduling\templates\scheduling\regular_lessons\create.html:56
+#: .\scheduling\templates\scheduling\regular_lessons\update.html:56
+#: .\scheduling\templates\scheduling\schedule_teacher.html:351
+#: .\scheduling\templates\scheduling\week_availability\date_add_form.html:44
+#: .\scheduling\templates\scheduling\week_availability\date_update_form.html:52
+#: .\scheduling\templates\scheduling\week_availability\week_add_form.html:50
+#: .\scheduling\templates\scheduling\week_availability\week_update_form.html:50
+msgid "Зберегти"
+msgstr "Зберегти"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:5
+#: .\accounts\templates\accounts\profile\profile_teacher.html:5
+#: .\templates\base.html:85 .\templates\base.html:89
+msgid "Профіль"
+msgstr "Профіль"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:18
+#: .\accounts\templates\accounts\profile\profile_teacher.html:18
+#| msgid "Мої вчителі"
+msgid "Вчитель"
+msgstr "Вчитель"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:22
+#: .\accounts\templates\accounts\profile\profile_teacher.html:22
+msgid "Студент"
+msgstr "Студент"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:30
+#: .\accounts\templates\accounts\profile\profile_teacher.html:30
+msgid "Загальна інформація"
+msgstr "Загальна інформація"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:51
+#: .\accounts\templates\accounts\profile\profile_teacher.html:50
+#| msgid "Введіть пошту!"
+msgid "Введіть ім'я"
+msgstr "Введіть ім'я"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:59
+#: .\accounts\templates\accounts\profile\profile_student.html:92
+#: .\accounts\templates\accounts\profile\profile_teacher.html:55
+#: .\accounts\templates\accounts\profile\profile_teacher.html:82
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:83
+#: .\scheduling\templates\scheduling\schedule_teacher.html:91
+#: .\scheduling\templates\scheduling\schedule_teacher.html:109
+#: .\scheduling\templates\scheduling\schedule_teacher.html:168
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:71
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:169
+msgid "Змінити"
+msgstr "Змінити"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:84
+#: .\accounts\templates\accounts\profile\profile_teacher.html:77
+#| msgid "Введіть пошту!"
+msgid "Введіть прізвище"
+msgstr "Введіть прізвище"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:102
+#: .\accounts\templates\accounts\profile\profile_teacher.html:89
+msgid "Пошта"
+msgstr "Пошта"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:112
+#: .\accounts\templates\accounts\profile\profile_teacher.html:98
+msgid "Змінити пароль"
+msgstr "Змінити пароль"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:122
+#: .\accounts\templates\accounts\profile\profile_student.html:136
+#| msgid "Профіль"
+msgid "Профіль студента"
+msgstr "Профіль студента"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:126
+msgid "На жаль, ви поки що не студент(("
+msgstr "На жаль, ви поки що не студент(("
+
+#: .\accounts\templates\accounts\profile\profile_student.html:142
+#: .\accounts\templates\accounts\profile\profile_teacher.html:282
+msgid "Опис"
+msgstr "Опис"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:155
+#: .\accounts\templates\accounts\profile\profile_teacher.html:295
+#| msgid "Введіть пошту!"
+msgid "Введіть опис"
+msgstr "Введіть опис"
+
+#: .\accounts\templates\accounts\profile\profile_student.html:162
+#: .\accounts\templates\accounts\profile\profile_teacher.html:302
+msgid "Внести зміни"
+msgstr "Внести зміни"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:108
+#| msgid "Списання вчителем"
+msgid "На жаль, ви поки що не вчитель((("
+msgstr "На жаль, ви поки що не вчитель((("
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:118
+#| msgid "Списання вчителем"
+msgid "Загальна інформація вчителя"
+msgstr "Загальна інформація вчителя"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:124
+#| msgid "Тривалість уроку"
+msgid "Тривалість уроків"
+msgstr "Тривалість уроків"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:134
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:53
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:39
+msgid "хв"
+msgstr "хв"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:140
+msgid "коефіцієнт"
+msgstr "коефіцієнт"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:145
+#: .\scheduling\templates\scheduling\schedule_teacher.html:324
+msgid ""
+"Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок "
+"такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня"
+msgstr ""
+"Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок "
+"такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:169
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:93
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:81
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:179
+msgid "Видалити"
+msgstr "Видалити"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:189
+#| msgid "Тривалість уроку"
+msgid "Тривалість уроків поки що не додана"
+msgstr "Тривалість уроків поки що не додана"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:220
+#| msgid "Мої учні"
+msgid "Додати"
+msgstr "Додати"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:246
+#| msgid "Відновлення уроку"
+msgid "Налаштування розкладу"
+msgstr "Налаштування розкладу"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:257
+#| msgid "Сталі уроки"
+msgid "Перерва між уроками:"
+msgstr "Перерва між уроками:"
+
+#: .\accounts\templates\accounts\profile\profile_teacher.html:272
+#| msgid "Ціна за урок"
+msgid "Змінити час"
+msgstr "Змінити час"
+
+#: .\accounts\templates\accounts\student_detail.html:15
+#| msgid "Мої учні"
+msgid "Баланс учня"
+msgstr "Баланс учня"
+
+#: .\accounts\templates\accounts\student_detail.html:59
+#| msgid "Мої учні"
+msgid "Про учня"
+msgstr "Про учня"
+
+#: .\accounts\templates\accounts\student_detail.html:65
+msgid "Змінити баланс"
+msgstr "Змінити баланс"
+
+#: .\accounts\templates\accounts\student_detail.html:81
+#| msgid "Підтверджено вчителем"
+msgid "Підтвердити"
+msgstr "Підтвердити"
+
+#: .\accounts\templates\accounts\student_detail.html:93
+#: .\accounts\templates\accounts\teacher_detail.html:58
+msgid "Історія операцій"
+msgstr "Історія операцій"
+
+#: .\accounts\templates\accounts\student_detail.html:165
+#: .\accounts\templates\accounts\teacher_detail.html:130
+msgid "Ще немає жодної операції."
+msgstr "Ще немає жодної операції."
+
+#: .\accounts\templates\accounts\teacher_detail.html:46
+#| msgid "Мої вчителі"
+msgid "Про вчителя"
+msgstr "Про вчителя"
+
+#: .\accounts\urls.py:9
+msgid "profile/<str:title>/"
+msgstr "профіль/<str:title>/"
+
+#: .\accounts\urls.py:10
+msgid "profile/"
+msgstr "профіль/"
+
+#: .\accounts\urls.py:11
+msgid "config_profile/<str:action>/"
+msgstr "налаштування_профілю/<str:action>/"
+
+#: .\accounts\urls.py:12
+msgid "config_lesson_duration/"
+msgstr "налаштування_тривалості_уроку/"
+
+#: .\accounts\urls.py:18
+msgid "my_students/"
+msgstr "мої_учні/"
+
+#: .\accounts\urls.py:19
+msgid "teacher/student/<int:pk>/"
+msgstr "вчитель/учень/<int:pk>/"
+
+#: .\accounts\urls.py:20
+msgid "add_student/"
+msgstr "додати_учня/"
+
+#: .\accounts\urls.py:26
+msgid "my_teachers/"
+msgstr "мої_вчителі/"
+
+#: .\accounts\urls.py:27
+msgid "student/teacher/<int:pk>/"
+msgstr "учень/вчитель/<int:pk>/"
+
+#: .\accounts\views.py:28
+#| msgid "Списання вчителем"
+msgid "Ви не є вчителем"
+msgstr "Ви не є вчителем"
+
+#: .\accounts\views.py:54
+#| msgid "Оплачено учнем"
+msgid "Ви не є учнем"
+msgstr "Ви не є учнем"
+
+#: .\accounts\views.py:59
+msgid "Невідома роль"
+msgstr "Невідома роль"
+
+#: .\accounts\views.py:76
+msgid "Невідома дія"
+msgstr "Невідома дія"
+
+#: .\accounts\views.py:128
+#| msgid "Ціна за урок"
+msgid "Ціну за урок змінено"
+msgstr "Ціну за урок змінено"
+
+#: .\accounts\views.py:136
+msgid "Вкажіть суму для зміни балансу"
+msgstr "Вкажіть суму для зміни балансу"
+
+#: .\accounts\views.py:141
+msgid "У учня недостатньо коштів!"
+msgstr "У учня недостатньо коштів!"
+
+#: .\accounts\views.py:150
+msgid "Баланс змінено"
+msgstr "Баланс змінено"
+
+#: .\accounts\views.py:236
+msgid "Цей учень же існує в вашому списку!"
+msgstr "Цей учень же існує в вашому списку!"
+
+#: .\accounts\views.py:242
+msgid "Учня додано, йому прийде лист з запрошенням на вказану пошту!"
+msgstr "Учня додано, йому прийде лист з запрошенням на вказану пошту!"
+
+#: .\scheduling\forms.py:13 .\scheduling\forms.py:60
+msgid "Тривалість уроку"
+msgstr "Тривалість уроку"
+
+#: .\scheduling\forms.py:24
+msgid "Статус"
+msgstr "Статус"
+
+#: .\scheduling\forms.py:25 .\scheduling\forms.py:71 .\scheduling\forms.py:129
+#: .\templates\base.html:125
+msgid "Учень"
+msgstr "Учень"
+
+#: .\scheduling\forms.py:26 .\scheduling\forms.py:72 .\scheduling\forms.py:101
+#: .\scheduling\forms.py:117 .\scheduling\forms.py:130
+msgid "Час початку"
+msgstr "Час початку"
+
+#: .\scheduling\forms.py:27 .\scheduling\forms.py:73 .\scheduling\forms.py:102
+#: .\scheduling\forms.py:118 .\scheduling\forms.py:131
+msgid "Час завершення"
+msgstr "Час завершення"
+
+#: .\scheduling\forms.py:28 .\scheduling\forms.py:74
+msgid "Коментар"
+msgstr "Коментар"
+
+#: .\scheduling\forms.py:51
+msgid "Ви не можете обирати учня, якщо тип Слоту 'Перерва'"
+msgstr "Ви не можете обирати учня, якщо тип Слоту 'Перерва'"
+
+#: .\scheduling\forms.py:53
+msgid "Оберіть тривалість уроку!"
+msgstr "Оберіть тривалість уроку!"
+
+#: .\scheduling\forms.py:89
+msgid "Оберіть тривалість уроку"
+msgstr "Оберіть тривалість уроку"
+
+#: .\scheduling\forms.py:116
+msgid "Дата"
+msgstr "Дата"
+
+#: .\scheduling\models.py:9
+#: .\scheduling\templates\scheduling\schedule_teacher.html:412
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:102
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:108
+msgid "Понеділок"
+msgstr "Понеділок"
+
+#: .\scheduling\models.py:10
+#: .\scheduling\templates\scheduling\schedule_teacher.html:412
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:102
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:108
+msgid "Вівторок"
+msgstr "Вівторок"
+
+#: .\scheduling\models.py:11
+#: .\scheduling\templates\scheduling\schedule_teacher.html:412
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:102
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:108
+msgid "Середа"
+msgstr "Середа"
+
+#: .\scheduling\models.py:12
+#: .\scheduling\templates\scheduling\schedule_teacher.html:413
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:103
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:109
+msgid "Четвер"
+msgstr "Четвер"
+
+#: .\scheduling\models.py:13
+#: .\scheduling\templates\scheduling\schedule_teacher.html:413
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:103
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:109
+msgid "П'ятниця"
+msgstr "П'ятниця"
+
+#: .\scheduling\models.py:14
+#: .\scheduling\templates\scheduling\schedule_teacher.html:413
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:103
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:109
+msgid "Субота"
+msgstr "Субота"
+
+#: .\scheduling\models.py:15
+#: .\scheduling\templates\scheduling\schedule_teacher.html:412
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:102
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:108
+msgid "Неділя"
+msgstr "Неділя"
+
+#: .\scheduling\models.py:31 .\scheduling\models.py:66
+#: .\scheduling\models.py:118 .\scheduling\models.py:154
+msgid "Час закінчення більший за час початку!"
+msgstr "Час закінчення більший за час початку!"
+
+#: .\scheduling\models.py:45 .\scheduling\models.py:81
+#: .\scheduling\models.py:134 .\scheduling\models.py:167
+msgid "Цей час пересікається з існуючим!"
+msgstr "Цей час пересікається з існуючим!"
+
+#: .\scheduling\models.py:91
+msgid "Заброньовано"
+msgstr "Заброньовано"
+
+#: .\scheduling\models.py:92
+#: .\scheduling\templates\scheduling\schedule_student.html:87
+#: .\scheduling\templates\scheduling\schedule_teacher.html:131
+msgid "Скасовано"
+msgstr "Скасовано"
+
+#: .\scheduling\models.py:93
+#: .\scheduling\templates\scheduling\schedule_teacher.html:87
+msgid "Перерва"
+msgstr "Перерва"
+
+#: .\scheduling\models.py:96
+msgid "Очікує оплати"
+msgstr "Очікує оплати"
+
+#: .\scheduling\models.py:97
+msgid "Оплачено учнем"
+msgstr "Оплачено учнем"
+
+#: .\scheduling\models.py:98
+msgid "Підтверджено вчителем"
+msgstr "Підтверджено вчителем"
+
+#: .\scheduling\services.py:102
+msgid "Недостатньо коштів для цієї операції!"
+msgstr "Недостатньо коштів для цієї операції!"
+
+#: .\scheduling\services.py:148
+msgid "Не надано вільних інтервалів."
+msgstr "Не надано вільних інтервалів."
+
+#: .\scheduling\services.py:165
+#, python-format
+msgid ""
+"Час завершення зайнятого інтервалу має бути пізніше за час початку: "
+"%(start)s - %(end)s."
+msgstr ""
+"Час завершення зайнятого інтервалу має бути пізніше за час початку: "
+"%(start)s - %(end)s."
+
+#: .\scheduling\services.py:204
+msgid "Вільний інтервал повинен містити 'date' або 'weekday'."
+msgstr "Вільний інтервал повинен містити 'date' або 'weekday'."
+
+#: .\scheduling\services.py:211
+#, python-format
+msgid ""
+"Час завершення вільного інтервалу має бути пізніше за час початку: %(start)s"
+" - %(end)s."
+msgstr ""
+"Час завершення вільного інтервалу має бути пізніше за час початку: %(start)s"
+" - %(end)s."
+
+#: .\scheduling\templates\scheduling\regular_lessons\create.html:12
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:42
+#| msgid "Мої учні"
+msgid "Додати урок"
+msgstr "Додати урок"
+
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:5
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:16
+#: .\templates\base.html:117
+msgid "Сталі уроки"
+msgstr "Сталі уроки"
+
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:24
+msgid ""
+"Уроки, які повторюються щотижня в один і той самий день та час з конкретним "
+"учнем"
+msgstr ""
+"Уроки, які повторюються щотижня в один і той самий день та час з конкретним "
+"учнем"
+
+#: .\scheduling\templates\scheduling\regular_lessons\info.html:118
+msgid "Уроків не заплановано"
+msgstr "Уроків не заплановано"
+
+#: .\scheduling\templates\scheduling\regular_lessons\update.html:12
+#| msgid "Ціна за урок"
+msgid "Змінити урок"
+msgstr "Змінити урок"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:5
+#: .\scheduling\templates\scheduling\schedule_student.html:17
+#: .\scheduling\templates\scheduling\schedule_teacher.html:5
+#: .\scheduling\templates\scheduling\schedule_teacher.html:17
+#| msgid "Розклад"
+msgid "Мій розклад"
+msgstr "Мій розклад"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:24
+#: .\scheduling\templates\scheduling\schedule_teacher.html:24
+msgid "Попередній тиждень"
+msgstr "Попередній тиждень"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:38
+#: .\scheduling\templates\scheduling\schedule_teacher.html:40
+msgid "Наступний тиждень"
+msgstr "Наступний тиждень"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:60
+#| msgid "Сталі уроки"
+msgid "Взяти урок"
+msgstr "Взяти урок"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:119
+#| msgid "Очікує оплати"
+msgid "Оплатив"
+msgstr "Оплатив"
+
+#: .\scheduling\templates\scheduling\schedule_student.html:137
+#: .\scheduling\templates\scheduling\schedule_teacher.html:238
+msgid "Немає слотів"
+msgstr "Немає слотів"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:62
+#: .\scheduling\templates\scheduling\schedule_teacher.html:263
+#| msgid "Мої учні"
+msgid "Додати заняття"
+msgstr "Додати заняття"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:118
+msgid "Відновити"
+msgstr "Відновити"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:118
+#, python-format
+msgid "(спише %(price)s ₴ з балансу учня)"
+msgstr "(спише %(price)s ₴ з балансу учня)"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:142
+#, python-format
+msgid "%(amount)s ₴ повернено учню"
+msgstr "%(amount)s ₴ повернено учню"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:177
+msgid "Відмінити"
+msgstr "Відмінити"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:221
+#| msgid "Підтверджено вчителем"
+msgid "Підтвердити оплату"
+msgstr "Підтвердити оплату"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:261
+msgid "Редагувати заняття"
+msgstr "Редагувати заняття"
+
+#: .\scheduling\templates\scheduling\schedule_teacher.html:307
+msgid "Тип заняття:"
+msgstr "Тип заняття:"
+
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:12
+#| msgid "Викладач"
+msgid "Оберіть викладача"
+msgstr "Оберіть викладача"
+
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:30
+msgid "Оберіть тривалість уроку, щоб побачити вільні слоти на цю дату"
+msgstr "Оберіть тривалість уроку, щоб побачити вільні слоти на цю дату"
+
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:64
+#| msgid "Оберіть тривалість уроку"
+msgid "Немає доступних тривалостей уроку"
+msgstr "Немає доступних тривалостей уроку"
+
+#: .\scheduling\templates\scheduling\student_booking\choose_teacher.html:78
+msgid "У вас поки немає доданих викладачів"
+msgstr "У вас поки немає доданих викладачів"
+
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:12
+#| msgid "Введіть пошту!"
+msgid "Оберіть час"
+msgstr "Оберіть час"
+
+#: .\scheduling\templates\scheduling\student_booking\show_availability.html:84
+msgid "На цю дату немає вільних слотів для обраної тривалості"
+msgstr "На цю дату немає вільних слотів для обраної тривалості"
+
+#: .\scheduling\templates\scheduling\week_availability\date_add_form.html:12
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:137
+#| msgid "Мої учні"
+msgid "Додати виключення"
+msgstr "Додати виключення"
+
+#: .\scheduling\templates\scheduling\week_availability\date_update_form.html:12
+#: .\scheduling\templates\scheduling\week_availability\week_update_form.html:12
+msgid "Редагувати особливу дату"
+msgstr "Редагувати особливу дату"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:5
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:16
+msgid "Щотижневий розклад"
+msgstr "Щотижневий розклад"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:24
+msgid ""
+"Ваш стандартний робочий час на кожен день тижня. Цей розклад повторюється "
+"щотижня, доки ви не додасте виключення на конкретну дату нижче"
+msgstr ""
+"Ваш стандартний робочий час на кожен день тижня. Цей розклад повторюється "
+"щотижня, доки ви не додасте виключення на конкретну дату нижче"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:42
+#| msgid "Мої учні"
+msgid "Додати час"
+msgstr "Додати час"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:104
+msgid "Розклад не вказано"
+msgstr "Розклад не вказано"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:118
+#| msgid "Відновлення уроку"
+msgid "Виключення в розкладі"
+msgstr "Виключення в розкладі"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:126
+msgid ""
+"Дозволяє встановити інший робочий час на конкретну дату, не змінюючи "
+"звичайний тижневий розклад"
+msgstr ""
+"Дозволяє встановити інший робочий час на конкретну дату, не змінюючи "
+"звичайний тижневий розклад"
+
+#: .\scheduling\templates\scheduling\week_availability\teacher_week_availability.html:202
+msgid "Немає виключень в тижневому розкладі"
+msgstr "Немає виключень в тижневому розкладі"
+
+#: .\scheduling\templates\scheduling\week_availability\week_add_form.html:12
+#| msgid "Мої учні"
+msgid "Додати робочий час"
+msgstr "Додати робочий час"
+
+#: .\scheduling\urls.py:8
+msgid "teacher_schedule/"
+msgstr "розклад_вчителя/"
+
+#: .\scheduling\urls.py:9
+msgid "student_schedule/"
+msgstr "розклад_учня/"
+
+#: .\scheduling\urls.py:10
+msgid "week_availability/"
+msgstr "тижнева_доступність/"
+
+#: .\scheduling\urls.py:15
+msgid "add_slot/<str:date>/"
+msgstr "додати_слот/<str:date>/"
+
+#: .\scheduling\urls.py:16
+msgid "update_slot/<int:pk>/"
+msgstr "оновити_слот/<int:pk>/"
+
+#: .\scheduling\urls.py:17
+msgid "confirm_payment_by_teacher/<int:pk>/"
+msgstr "підтвердити_оплату_вчителем/<int:pk>/"
+
+#: .\scheduling\urls.py:18
+msgid "confirm_payment_by_student/<int:pk>/"
+msgstr "підтвердити_оплату_учнем/<int:pk>/"
+
+#: .\scheduling\urls.py:19
+msgid "teacher/cancel_slot/<int:pk>/"
+msgstr "вчитель/скасувати_слот/<int:pk>/"
+
+#: .\scheduling\urls.py:20
+msgid "teacher/restore_slot/<int:pk>/"
+msgstr "вчитель/відновити_слот/<int:pk>/"
+
+#: .\scheduling\urls.py:25
+msgid "teacher/create_week_availability/<int:week_number>/"
+msgstr "вчитель/створити_тижневу_доступність/<int:week_number>/"
+
+#: .\scheduling\urls.py:27
+msgid "teacher/update_week_availability/<int:pk>/"
+msgstr "вчитель/оновити_тижневу_доступність/<int:pk>/"
+
+#: .\scheduling\urls.py:29
+msgid "teacher/delete_week_availability/<int:pk>/"
+msgstr "вчитель/видалити_тижневу_доступність/<int:pk>/"
+
+#: .\scheduling\urls.py:31
+msgid "teacher/create_date_availability/"
+msgstr "вчитель/створити_доступність_на_дату/"
+
+#: .\scheduling\urls.py:33
+msgid "teacher/update_date_availability/<int:pk>/"
+msgstr "вчитель/оновити_доступність_на_дату/<int:pk>/"
+
+#: .\scheduling\urls.py:35
+msgid "teacher/delete_date_availability/<int:pk>/"
+msgstr "вчитель/видалити_доступність_на_дату/<int:pk>/"
+
+#: .\scheduling\urls.py:41
+msgid "regular_lessons_info/"
+msgstr "сталі_уроки_інформація/"
+
+#: .\scheduling\urls.py:42
+msgid "regular_lessons_create/<int:week_number>/"
+msgstr "сталі_уроки_створити/<int:week_number>/"
+
+#: .\scheduling\urls.py:43
+msgid "regular_lessons_update/<int:pk>/"
+msgstr "сталі_уроки_оновити/<int:pk>/"
+
+#: .\scheduling\urls.py:44
+msgid "regular_lessons_delete/<int:pk>/"
+msgstr "сталі_уроки_видалити/<int:pk>/"
+
+#: .\scheduling\urls.py:49
+msgid "teacher_choice/<str:date>/"
+msgstr "вибір_вчителя/<str:date>/"
+
+#: .\scheduling\urls.py:50
+msgid "show_availability/<str:date>/<int:teacher_id>/<int:duration_id>/"
+msgstr "показати_доступність/<str:date>/<int:teacher_id>/<int:duration_id>/"
+
+#: .\scheduling\urls.py:52
+msgid "student_confirm_booking/"
+msgstr "учень_підтвердити_бронювання/"
+
+#: .\scheduling\views.py:61 .\scheduling\views.py:95
+msgid "Цей час вже зайнятий іншим заняттям"
+msgstr "Цей час вже зайнятий іншим заняттям"
+
+#: .\scheduling\views.py:63 .\scheduling\views.py:222
+#: .\scheduling\views.py:273 .\scheduling\views.py:333
+#| msgid "Мої учні"
+msgid "Додано"
+msgstr "Додано"
+
+#: .\scheduling\views.py:97 .\scheduling\views.py:244
+#: .\scheduling\views.py:292 .\scheduling\views.py:356
+#| msgid "Відновлення уроку"
+msgid "Оновлено"
+msgstr "Оновлено"
+
+#: .\scheduling\views.py:172
+msgid "Урок скасовано, кошти повернуто учню!"
+msgstr "Урок скасовано, кошти повернуто учню!"
+
+#: .\scheduling\views.py:196 .\scheduling\views.py:206
+msgid "Не можна відновити — цей час вже зайнятий іншим уроком"
+msgstr "Не можна відновити — цей час вже зайнятий іншим уроком"
+
+#: .\scheduling\views.py:198
+msgid "У учня недостатньо коштів для відновлення уроку"
+msgstr "У учня недостатньо коштів для відновлення уроку"
+
+#: .\scheduling\views.py:200
+msgid "Урок відновлено, кошти учня списані!"
+msgstr "Урок відновлено, кошти учня списані!"
+
+#: .\scheduling\views.py:208
+#| msgid "Відновлення уроку"
+msgid "Урок відновлено!"
+msgstr "Урок відновлено!"
+
+#: .\scheduling\views.py:261 .\scheduling\views.py:308
+#: .\scheduling\views.py:373
+msgid "Видалено"
+msgstr "Видалено"
+
+#: .\scheduling\views.py:398
+msgid "Не можна обрати дату в минулому"
+msgstr "Не можна обрати дату в минулому"
+
+#: .\scheduling\views.py:435
+msgid "Жаль, але для цієї дати немає слотів"
+msgstr "Жаль, але для цієї дати немає слотів"
+
+#: .\scheduling\views.py:488 .\scheduling\views.py:501
+msgid "На жаль, цей час вже зайнято. Спробуйте інший."
+msgstr "На жаль, цей час вже зайнято. Спробуйте інший."
+
+#: .\scheduling\views.py:503
+#| msgid "Заброньовано"
+msgid "Урок успішно заброньовано!"
+msgstr "Урок успішно заброньовано!"
+
+#: .\templates\base.html:57
+msgid "Вийти"
+msgstr "Вийти"
+
+#: .\templates\base.html:63 .\templates\base.html:96
+msgid "Увійти"
+msgstr "Увійти"
+
+#: .\templates\base.html:76
+msgid "Акаунт"
+msgstr "Акаунт"
+
+#: .\templates\base.html:81
+msgid "Головна"
+msgstr "Головна"
+
+#: .\templates\base.html:104
+msgid "Викладач"
+msgstr "Викладач"
+
+#: .\templates\base.html:108 .\templates\base.html:129
+msgid "Розклад"
+msgstr "Розклад"
+
+#: .\templates\base.html:111
+msgid "Робочі години"
+msgstr "Робочі години"
+
+#: .\templates\base.html:140
+msgid "Адміністрування"
+msgstr "Адміністрування"
+
+#: .\templates\base.html:144
+msgid "Адмін-панель"
+msgstr "Адмін-панель"
+
+#: .\templates\base.html:195
+msgid "Знайшли баг або є ідея? Пишіть мені сюди."
+msgstr "Знайшли баг або є ідея? Пишіть мені сюди."
+
+#, fuzzy
+#~ msgid "П\\'ятниця"
+#~ msgstr "П'ятниця"
