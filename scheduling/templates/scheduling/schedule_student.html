@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Мій розклад{% endblock %}
+{% block title %}{% trans "Мій розклад" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'scheduling/css/schedule_student.css' %}">
@@ -13,14 +14,14 @@
 
         <div class="schedule-header">
             <h1 class="schedule-title">
-                Мій розклад
+                {% trans "Мій розклад" %}
             </h1>
         </div>
 
         <div class="schedule-navigation">
 
             <a class="schedule-nav-btn" href="?day={{ previous_week|date:'Y-m-d' }}">
-                ← Попередній тиждень
+                ← {% trans "Попередній тиждень" %}
             </a>
 
             <form method="get" class="schedule-date-form">
@@ -34,7 +35,7 @@
             </form>
 
             <a class="schedule-nav-btn" href="?day={{ next_week|date:'Y-m-d' }}">
-                Наступний тиждень →
+                {% trans "Наступний тиждень" %} →
             </a>
 
         </div>
@@ -56,7 +57,7 @@
 
                         <a class="schedule-icon-btn schedule-icon-add"
                            href="{% url 'scheduling:teacher_choice' day.date|date:'Y-m-d' %}"
-                           title="Взяти урок">
+                           title="{% trans "Взяти урок" %}">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
                                  stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                  stroke-linejoin="round">
@@ -83,7 +84,7 @@
 
                                         <div class="schedule-slot-name-row">
                                             <span class="schedule-slot-student">{{ slot.student }}</span>
-                                            <span class="schedule-cancelled-label">Скасовано</span>
+                                            <span class="schedule-cancelled-label">{% trans "Скасовано" %}</span>
                                         </div>
                                     </div>
 
@@ -115,7 +116,7 @@
                                                     {% csrf_token %}
 
                                                     <button class="schedule-btn schedule-confirm-btn" type="submit">
-                                                        Оплатив
+                                                        {% trans "Оплатив" %}
                                                     </button>
 
                                                 </form>
@@ -133,7 +134,7 @@
                     {% else %}
 
                         <p class="schedule-empty">
-                            Немає слотів
+                            {% trans "Немає слотів" %}
                         </p>
 
                     {% endif %}

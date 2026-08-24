@@ -3,6 +3,7 @@ from django.conf import settings
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.utils.translation import gettext_lazy as _
 
 import zoneinfo
 from django.urls import reverse
@@ -75,11 +76,11 @@ class TeacherLessonDuration(models.Model):
 
 class BalanceAction(models.Model):
     class ActionType(models.TextChoices):
-        CREDIT = 'credit', 'Нарахування вчителем'
-        DEBIT = 'debit', 'Списання за урок'
-        REFUND = 'refund', 'Скасований урок'
-        RESTORE = 'restore', 'Відновлення уроку'
-        WITHDRAWAL = 'withdrawal', 'Списання вчителем'
+        CREDIT = 'credit', _('Нарахування вчителем')
+        DEBIT = 'debit', _('Списання за урок')
+        REFUND = 'refund', _('Скасований урок')
+        RESTORE = 'restore', _('Відновлення уроку')
+        WITHDRAWAL = 'withdrawal', _('Списання вчителем')
 
     teacher_student = models.ForeignKey(TeacherStudent, on_delete=models.CASCADE, related_name='actions')
     action_type = models.CharField(max_length=20, choices=ActionType.choices)

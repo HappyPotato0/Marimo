@@ -434,3 +434,51 @@ a.footer-social--telegram:hover {
         justify-content: center;
     }
 }
+
+/* ===== Language switcher ===== */
+
+.lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    padding: 4px;
+
+    background: var(--btn-bg);
+
+    border: 1px solid var(--btn-border);
+    border-radius: 10px;
+}
+
+.lang-switch__item {
+    appearance: none;
+
+    padding: 6px 10px;
+
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+
+    color: rgba(253, 250, 242, .68);
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.lang-switch__item:hover {
+    color: #fdfaf2;
+    background: rgba(255, 255, 255, .14);
+}
+
+.lang-switch__item--active {
+    color: #3f3525;
+    background: #fdfaf2;
+
+    box-shadow: 0 2px 6px rgba(63, 53, 37, .18);
+}

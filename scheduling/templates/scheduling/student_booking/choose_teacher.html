@@ -1,4 +1,5 @@
 {% extends "scheduling/schedule_student.html" %}
+{% load i18n %}
 
 {% block modal %}
 
@@ -8,7 +9,7 @@
 
             <div class="slot-modal-header">
                 <div>
-                    <div class="slot-modal-title">Оберіть викладача</div>
+                    <div class="slot-modal-title">{% trans "Оберіть викладача" %}</div>
                     <div class="slot-modal-date-badge" id="slot-modal-date" data-date="{{ date|date:'Y-m-d' }}">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -26,7 +27,7 @@
             </div>
 
             <p class="slot-modal-subtitle">
-                Оберіть тривалість уроку, щоб побачити вільні слоти на цю дату
+                {% trans "Оберіть тривалість уроку, щоб побачити вільні слоти на цю дату" %}
             </p>
 
             {% if teachers %}
@@ -49,7 +50,7 @@
 
                                         <a class="duration-chip"
                                            href="{% url 'scheduling:show_availability' date ts.teacher.id duration.id %}">
-                                            {{ duration.duration_minutes }} хв
+                                            {{ duration.duration_minutes }} {% trans "хв" %}
 
                                         </a>
 
@@ -60,7 +61,7 @@
                             {% else %}
 
                                 <p class="schedule-empty schedule-empty--small">
-                                    Немає доступних тривалостей уроку
+                                    {% trans "Немає доступних тривалостей уроку" %}
                                 </p>
 
                             {% endif %}
@@ -74,7 +75,7 @@
             {% else %}
 
                 <p class="schedule-empty">
-                    У вас поки немає доданих викладачів
+                    {% trans "У вас поки немає доданих викладачів" %}
                 </p>
 
             {% endif %}
@@ -98,8 +99,8 @@
             const dateObj = new Date(year, month - 1, day);
 
             const weekdays = [
-                'Неділя', 'Понеділок', 'Вівторок', 'Середа',
-                'Четвер', "П'ятниця", 'Субота'
+                '{% trans "Неділя" %}', '{% trans "Понеділок" %}', '{% trans "Вівторок" %}', '{% trans "Середа" %}',
+                '{% trans "Четвер" %}', '{% trans "П'ятниця" %}', '{% trans "Субота" %}'
             ];
 
             textEl.textContent = weekdays[dateObj.getDay()] + ', ' +

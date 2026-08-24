@@ -5,6 +5,7 @@ from django.http import Http404
 from django.db.models import F
 from django.core.exceptions import ValidationError
 from decimal import Decimal
+from django.utils.translation import gettext_lazy as _
 
 from accounts.models import TeacherProfile, StudentProfile, TeacherStudent, BalanceAction
 from .models import TeacherWeekdayAvailability, TeacherDateAvailability, RegularLesson, Slot, Weekday
@@ -98,7 +99,7 @@ def process_balance_action(
         teacher=teacher, student=student)
 
     if teacher_student.balance + amount < 0:
-        raise ValidationError("Недостатньо коштів для цієї операції!")
+        raise ValidationError(_("Недостатньо коштів для цієї операції!"))
 
     teacher_student.balance = F('balance') + amount
     teacher_student.save(update_fields=['balance'])
@@ -144,7 +145,7 @@ def generate_slots_for_intervals(
     busy_intervals = list(busy_intervals)
 
     if not free_intervals:
-        raise ValidationError("Не надано вільних інтервалів.")
+        raise ValidationError(_("Не надано вільних інтервалів."))
 
     slot_delta = timedelta(minutes=slot_minutes)
     break_delta = timedelta(minutes=break_minutes)
@@ -161,7 +162,10 @@ def generate_slots_for_intervals(
 
         if start_time >= end_time:
             raise ValidationError(
-                f"Час завершення зайнятого інтервалу має бути пізніше за час початку: {start_time} - {end_time}."
+                _("Час завершення зайнятого інтервалу має бути пізніше за час початку: %(start)s - %(end)s.") % {
+                    'start': start_time,
+                    'end': end_time,
+                }
             )
 
         busy_start = datetime.combine(interval_date, start_time)
@@ -197,16 +201,18 @@ def generate_slots_for_intervals(
         elif "weekday" in interval:
             interval_date = base_date
         else:
-            raise ValidationError("Вільний інтервал повинен містити 'date' або 'weekday'.")
+            raise ValidationError(_("Вільний інтервал повинен містити 'date' або 'weekday'."))
 
         start_time = interval["start_time"]
         end_time = interval["end_time"]
 
         if start_time >= end_time:
             raise ValidationError(
-                f"Час завершення вільного інтервалу має бути пізніше за час початку: {start_time} - {end_time}."
+                _("Час завершення вільного інтервалу має бути пізніше за час початку: %(start)s - %(end)s.") % {
+                    'start': start_time,
+                    'end': end_time,
+                }
             )
-
         free_start = datetime.combine(interval_date, start_time)
         free_end = datetime.combine(interval_date, end_time)
 

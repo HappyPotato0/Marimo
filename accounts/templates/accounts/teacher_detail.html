@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ teacher_student.teacher.teacher.first_name }} {{ teacher_student.teacher.teacher.last_name }}{% endblock %}
 
@@ -14,7 +15,7 @@
     <div class="teacher-profile-card">
 
         <div class="teacher-profile-balance-banner">
-            <div class="teacher-profile-balance-label">Мій баланс</div>
+            <div class="teacher-profile-balance-label">{% trans "Мій баланс" %}</div>
             <div class="teacher-profile-balance-amount">{{ teacher_student.balance }} ₴</div>
         </div>
 
@@ -36,13 +37,13 @@
             </div>
 
             <div class="teacher-price-row">
-                <span class="teacher-price-label">Ціна за урок</span>
+                <span class="teacher-price-label">{% trans "Ціна за урок" %}</span>
                 <span class="teacher-price-value">{{ teacher_student.price }} ₴</span>
             </div>
 
             {% if teacher_student.teacher.bio %}
                 <div class="teacher-profile-bio">
-                    <div class="teacher-profile-bio-label">Про вчителя</div>
+                    <div class="teacher-profile-bio-label">{% trans "Про вчителя" %}</div>
                     <div class="teacher-profile-bio-text">{{ teacher_student.teacher.bio }}</div>
                 </div>
             {% endif %}
@@ -54,7 +55,7 @@
     <div class="teacher-transactions-panel">
 
         <h2 class="transactions-title">
-            Історія операцій
+            {% trans "Історія операцій" %}
         </h2>
 
         {% if transaction_history %}
@@ -126,7 +127,7 @@
         {% else %}
 
             <p class="transactions-empty">
-                Ще немає жодної операції.
+                {% trans "Ще немає жодної операції." %}
             </p>
 
         {% endif %}

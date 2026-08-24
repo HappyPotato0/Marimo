@@ -1,4 +1,5 @@
 {% extends "accounts/my_students.html" %}
+{% load i18n %}
 
 {% block modal %}
 
@@ -19,8 +20,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="slot-modal-title">Додати учня</div>
-                        <div class="slot-modal-subtitle">Створіть профіль нового учня</div>
+                        <div class="slot-modal-title">{% trans "Додати учня" %}</div>
+                        <div class="slot-modal-subtitle">{% trans "Створіть профіль нового учня" %}</div>
                     </div>
                 </div>
                 <a class="slot-modal-close" href="{% url 'accounts:my_students' %}">✕</a>
@@ -40,13 +41,13 @@
                 <div class="slot-modal-row">
 
                     <p>
-                        <label for="{{ form.first_name.id_for_label }}">Ім'я:</label>
+                        {{ form.first_name.label_tag }}
                         {{ form.first_name.errors }}
                         {{ form.first_name }}
                     </p>
 
                     <p>
-                        <label for="{{ form.last_name.id_for_label }}">Прізвище:</label>
+                        {{ form.last_name.label_tag }}
                         {{ form.last_name.errors }}
                         {{ form.last_name }}
                     </p>
@@ -54,13 +55,13 @@
                 </div>
 
                 <p>
-                    <label for="{{ form.price.id_for_label }}">Ціна за урок:</label>
+                    {{ form.price.label_tag }}
                     {{ form.price.errors }}
                     {{ form.price }}
                 </p>
 
                 <p>
-                    <label for="{{ form.email.id_for_label }}">Email учня:</label>
+                    {{ form.email.label_tag }}
                     {{ form.email.errors }}
                     <div class="slot-input-icon-wrap">
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
@@ -71,12 +72,12 @@
                         </svg>
                         {{ form.email }}
                     </div>
-                    <span class="slot-field-hint">Учень отримає запрошення на цю пошту</span>
+                    <span class="slot-field-hint">{% trans "Учень отримає запрошення на цю пошту" %}</span>
                 </p>
 
                 <div class="slot-modal-actions">
-                    <a class="schedule-btn schedule-cancel-btn" href="{% url 'accounts:my_students' %}">Скасувати</a>
-                    <button class="schedule-btn schedule-confirm-btn" type="submit">Зберегти</button>
+                    <a class="schedule-btn schedule-cancel-btn" href="{% url 'accounts:my_students' %}">{% trans "Скасувати" %}</a>
+                    <button class="schedule-btn schedule-confirm-btn" type="submit">{% trans "Зберегти" %}</button>
                 </div>
 
             </form>

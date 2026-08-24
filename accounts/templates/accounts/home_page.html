@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}I wanna be potato{% endblock %}
 
@@ -14,33 +15,37 @@
         <section class="home-hero home-hero--split">
             <div class="home-hero__text">
                 <div class="home-badge">
-                    Приватний доступ · тільки за запрошенням
+                    {% trans "Приватний доступ · тільки за запрошенням" %}
                 </div>
 
                 <h1 class="home-title">
-                    Розклад занять, який не забирає час на організацію
+                    {% trans "Розклад занять, який не забирає час на організацію" %}
                 </h1>
 
                 <p class="home-description">
-                    Викладач бачить усіх учнів і оплати в одному місці.
-                    Учень бронює зручний час за кілька секунд — без дзвінків і перепитувань.
+                    {% blocktrans %}
+                        Викладач бачить усіх учнів і оплати в одному місці.
+                        Учень бронює зручний час за кілька секунд — без дзвінків і перепитувань.
+                    {% endblocktrans %}
                 </p>
             </div>
 
             <div class="home-hero__image" data-lightbox="{% static 'images/schedule_teacher.png' %}">
-                <img src="{% static 'images/schedule_teacher.png' %}" alt="Розклад викладача в системі">
+                <img src="{% static 'images/schedule_teacher.png' %}" alt="{% trans "Розклад викладача в системі" %}">
             </div>
         </section>
 
         <section class="home-section">
             <h2 class="home-section-title">
-                Для чого ця платформа
+                {% trans "Для чого ця платформа" %}
             </h2>
 
             <p class="home-section-text">
-                Більше не треба тримати розклад у голові чи в чаті з учнями.
-                Викладач один раз налаштовує вільний час — і кожен учень
-                сам обирає зручний слот, а система відстежує, хто оплатив, а хто ще ні.
+                {% blocktrans %}
+                    Більше не треба тримати розклад у голові чи в чаті з учнями.
+                    Викладач один раз налаштовує вільний час — і кожен учень
+                    сам обирає зручний слот, а система відстежує, хто оплатив, а хто ще ні.
+                {% endblocktrans %}
             </p>
         </section>
 
@@ -50,11 +55,11 @@
                 <div class="feature-number">01</div>
 
                 <h3 class="feature-title">
-                    Контроль розкладу
+                    {% trans "Контроль розкладу" %}
                 </h3>
 
                 <p class="feature-text">
-                    Викладач самостійно вказує вільні слоти та керує своїм графіком.
+                    {% trans "Викладач самостійно вказує вільні слоти та керує своїм графіком." %}
                 </p>
             </div>
 
@@ -62,11 +67,11 @@
                 <div class="feature-number">02</div>
 
                 <h3 class="feature-title">
-                    Запис за запрошенням
+                    {% trans "Запис за запрошенням" %}
                 </h3>
 
                 <p class="feature-text">
-                    Учні отримують доступ лише після запрошення від викладача.
+                    {% trans "Учні отримують доступ лише після запрошення від викладача." %}
                 </p>
             </div>
 
@@ -74,11 +79,11 @@
                 <div class="feature-number">03</div>
 
                 <h3 class="feature-title">
-                    Закрита система
+                    {% trans "Закрита система" %}
                 </h3>
 
                 <p class="feature-text">
-                    Платформа не є відкритим каталогом — доступ мають тільки додані користувачі.
+                    {% trans "Платформа не є відкритим каталогом — доступ мають тільки додані користувачі." %}
                 </p>
             </div>
 
@@ -86,32 +91,32 @@
 
         <section class="home-section">
             <h2 class="home-section-title">
-                Як це виглядає
+                {% trans "Як це виглядає" %}
             </h2>
 
             <p class="home-examples-hint">
-                Натисніть на приклад, щоб побачити його у великому розмірі
+                {% trans "Натисніть на приклад, щоб побачити його у великому розмірі" %}
             </p>
 
             <div class="home-examples">
                 <figure class="home-example-card" data-lightbox="{% static 'images/schedule_student.png' %}">
-                    <img src="{% static 'images/schedule_student.png' %}" alt="Розклад учня з оплатами">
+                    <img src="{% static 'images/schedule_student.png' %}" alt="{% trans "Розклад учня з оплатами" %}">
                     <figcaption>
-                        Учень бачить свої уроки та статус оплати
+                        {% trans "Учень бачить свої уроки та статус оплати" %}
                     </figcaption>
                 </figure>
 
                 <figure class="home-example-card" data-lightbox="{% static 'images/take_lesson.png' %}">
-                    <img src="{% static 'images/take_lesson.png' %}" alt="Вибір часу уроку">
+                    <img src="{% static 'images/take_lesson.png' %}" alt="{% trans "Вибір часу уроку" %}">
                     <figcaption>
-                        Бронювання уроку — учень обирає зручний час
+                        {% trans "Бронювання уроку — учень обирає зручний час" %}
                     </figcaption>
                 </figure>
 
                 <figure class="home-example-card" data-lightbox="{% static 'images/student_details.png' %}">
-                    <img src="{% static 'images/student_details.png' %}" alt="Баланс і історія транзакцій учня">
+                    <img src="{% static 'images/student_details.png' %}" alt="{% trans "Баланс і історія транзакцій учня" %}">
                     <figcaption>
-                        Баланс і історія транзакцій учня
+                        {% trans "Баланс і історія транзакцій учня" %}
                     </figcaption>
                 </figure>
             </div>
@@ -120,13 +125,15 @@
         <section class="home-section">
 
             <h2 class="home-section-title">
-                Отримати доступ
+                {% trans "Отримати доступ" %}
             </h2>
 
             <p class="home-section-text">
-                Платформа є закритою системою.
-                Якщо ви хочете отримати доступ як викладач —
-                мої контакти для зв'язку вказані внизу сторінки.
+                {% blocktrans %}
+                    Платформа є закритою системою.
+                    Якщо ви хочете отримати доступ як викладач —
+                    мої контакти для зв'язку вказані внизу сторінки.
+                {% endblocktrans %}
             </p>
 
         </section>

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Профіль{% endblock %}
+{% block title %}{% trans "Профіль" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
@@ -14,11 +15,11 @@
         <div class="profile-nav">
 
             <a class="btn" href="{% url 'accounts:profile_details' 'teacher' %}">
-                Вчитель
+                {% trans "Вчитель" %}
             </a>
 
             <a class="btn active" href="{% url 'accounts:profile_details' 'student' %}">
-                Студент
+                {% trans "Студент" %}
             </a>
 
         </div>
@@ -26,7 +27,7 @@
         <section class="profile-section">
 
             <h2 class="section-title">
-                Загальна інформація
+                {% trans "Загальна інформація" %}
             </h2>
 
             <form
@@ -37,7 +38,7 @@
                 {% csrf_token %}
 
                 <label class="profile-setting-label">
-                    Ім’я
+                    {% trans "Ім'я" %}
                 </label>
 
                 <div class="profile-setting-control">
@@ -47,7 +48,7 @@
                             type="text"
                             name="value"
                             value="{{ user.first_name|default:'' }}"
-                            placeholder="Введіть ім’я"
+                            placeholder="{% trans "Введіть ім'я" %}"
                             required
                     >
 
@@ -55,7 +56,7 @@
                             class="profile-submit"
                             type="submit"
                     >
-                        Змінити
+                        {% trans "Змінити" %}
                     </button>
 
                 </div>
@@ -70,7 +71,7 @@
                 {% csrf_token %}
 
                 <label class="profile-setting-label">
-                    Прізвище
+                    {% trans "Прізвище" %}
                 </label>
 
                 <div class="profile-setting-control">
@@ -80,7 +81,7 @@
                             type="text"
                             name="value"
                             value="{{ user.last_name|default:'' }}"
-                            placeholder="Введіть прізвище"
+                            placeholder="{% trans "Введіть прізвище" %}"
                             required
                     >
 
@@ -88,7 +89,7 @@
                             class="profile-submit"
                             type="submit"
                     >
-                        Змінити
+                        {% trans "Змінити" %}
                     </button>
 
                 </div>
@@ -98,7 +99,7 @@
             <div class="profile-setting-row">
 
                 <span class="profile-setting-label">
-                    Пошта
+                    {% trans "Пошта" %}
                 </span>
 
                 <span class="profile-email">
@@ -108,7 +109,7 @@
             </div>
 
             <a class="profile-submit" href="{% url 'password_change' %}">
-                Змінити пароль
+                {% trans "Змінити пароль" %}
             </a>
 
         </section>
@@ -118,11 +119,11 @@
             <section class="profile-section">
 
                 <h2 class="section-title">
-                    Профіль студента
+                    {% trans "Профіль студента" %}
                 </h2>
 
                 <p class="student-empty-text">
-                    На жаль, ви поки що не студент((
+                    {% trans "На жаль, ви поки що не студент((" %}
                 </p>
 
             </section>
@@ -132,13 +133,13 @@
             <section class="profile-section">
 
                 <h2 class="section-title">
-                    Профіль студента
+                    {% trans "Профіль студента" %}
                 </h2>
 
                 <div class="teacher-block">
 
                     <h3 class="teacher-block-title">
-                        Опис
+                        {% trans "Опис" %}
                     </h3>
 
                     <form
@@ -151,14 +152,14 @@
                         <textarea
                                 class="profile-textarea"
                                 name="value"
-                                placeholder="Введіть опис"
+                                placeholder="{% trans "Введіть опис" %}"
                                 rows="6"
                         >{{ student.bio }}</textarea>
 
                         <input
                                 class="profile-submit"
                                 type="submit"
-                                value="Внести зміни"
+                                value="{% trans "Внести зміни" %}"
                         >
 
                     </form>

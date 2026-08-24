@@ -1,4 +1,5 @@
 {% extends "scheduling/schedule_student.html" %}
+{% load i18n %}
 
 {% block modal %}
 
@@ -8,7 +9,7 @@
 
             <div class="slot-modal-header">
                 <div>
-                    <div class="slot-modal-title">Оберіть час</div>
+                    <div class="slot-modal-title">{% trans "Оберіть час" %}</div>
                 </div>
                 <a class="slot-modal-close"
                    href="{% url 'scheduling:student_schedule' %}?day={{ date|date:'Y-m-d' }}">✕</a>
@@ -35,7 +36,7 @@
                         <circle cx="12" cy="12" r="9"/>
                         <path d="M12 7v5l3 3"/>
                     </svg>
-                    {{ duration_minutes }} хв
+                    {{ duration_minutes }} {% trans "хв" %}
                 </div>
 
             </div>
@@ -80,7 +81,7 @@
             {% else %}
 
                 <p class="schedule-empty">
-                    На цю дату немає вільних слотів для обраної тривалості
+                    {% trans "На цю дату немає вільних слотів для обраної тривалості" %}
                 </p>
 
             {% endif %}
@@ -104,8 +105,8 @@
             const dateObj = new Date(year, month - 1, day);
 
             const weekdays = [
-                'Неділя', 'Понеділок', 'Вівторок', 'Середа',
-                'Четвер', "П'ятниця", 'Субота'
+                '{% trans "Неділя" %}', '{% trans "Понеділок" %}', '{% trans "Вівторок" %}', '{% trans "Середа" %}',
+                '{% trans "Четвер" %}', '{% trans "П'ятниця" %}', '{% trans "Субота" %}'
             ];
 
             textEl.textContent = weekdays[dateObj.getDay()] + ', ' +

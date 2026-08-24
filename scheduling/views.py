@@ -3,11 +3,11 @@ from datetime import date, datetime
 from django.utils import timezone as django_timezone
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from pyexpat.errors import messages
 from django.http import Http404
 from accounts.decorators import teacher_only, student_only
 from django.contrib import messages
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 
 from accounts.models import TeacherStudent, BalanceAction, TeacherLessonDuration
 from .services import get_schedule_info, get_week_info, sorted_regular_lessons, process_balance_action, \
@@ -58,9 +58,9 @@ def add_slot(request, date):
             try:
                 obj.save()
             except ValidationError:
-                messages.error(request, "Цей час вже зайнятий іншим заняттям")
+                messages.error(request, _("Цей час вже зайнятий іншим заняттям"))
             else:
-                messages.success(request, "Додано")
+                messages.success(request, _("Додано"))
                 return redirect(f"{reverse('scheduling:teacher_schedule')}?day={date}")
     else:
         form = SlotForm(teacher=teacher_profile)
@@ -69,7 +69,7 @@ def add_slot(request, date):
     return render(request, "scheduling/schedule_teacher.html", {
         **additional_info,
         'form': form,
-        'form_mode': 'Додати заняття',
+        'is_edit_mode': False,
         'form_day_label': date,
         'back_day': date,
     })
@@ -92,9 +92,9 @@ def update_slot(request, pk):
             try:
                 obj.save()
             except ValidationError:
-                messages.error(request, "Цей час вже зайнятий іншим заняттям")
+                messages.error(request, _("Цей час вже зайнятий іншим заняттям"))
             else:
-                messages.success(request, "Оновлено")
+                messages.success(request, _("Оновлено"))
                 return redirect(f"{reverse('scheduling:teacher_schedule')}?day={slot.date}")
     else:
         form = SlotChangeForm(instance=slot, teacher=teacher_profile)
@@ -103,7 +103,7 @@ def update_slot(request, pk):
     return render(request, "scheduling/schedule_teacher.html", {
         **additional_info,
         'form': form,
-        'form_mode': 'Редагувати заняття',
+        'is_edit_mode': True,
         'form_day_label': slot.date.isoformat(),
         'back_day': slot.date.isoformat(),
     })
@@ -169,7 +169,7 @@ def cancel_slot(request, pk):
                                    amount=slot.price)
             slot.status = Slot.Status.CANCELLED
             slot.save()
-        messages.success(request, "Урок скасовано, кошти повернуто учню!")
+        messages.success(request, _("Урок скасовано, кошти повернуто учню!"))
     else:
         slot.status = Slot.Status.CANCELLED
         slot.save()
@@ -193,19 +193,19 @@ def restore_slot(request, pk):
                 slot.save()
         except ValidationError as e:
             if 'start_time' in getattr(e, 'message_dict', {}):
-                messages.error(request, "Не можна відновити — цей час вже зайнятий іншим уроком")
+                messages.error(request, _("Не можна відновити — цей час вже зайнятий іншим уроком"))
             else:
-                messages.error(request, "У учня недостатньо коштів для відновлення уроку")
+                messages.error(request, _("У учня недостатньо коштів для відновлення уроку"))
         else:
-            messages.success(request, "Урок відновлено, кошти учня списані!")
+            messages.success(request, _("Урок відновлено, кошти учня списані!"))
     else:
         try:
             slot.status = Slot.Status.BOOKED
             slot.save()
         except ValidationError:
-            messages.error(request, "Не можна відновити — цей час вже зайнятий іншим уроком")
+            messages.error(request, _("Не можна відновити — цей час вже зайнятий іншим уроком"))
         else:
-            messages.success(request, "Урок відновлено!")
+            messages.success(request, _("Урок відновлено!"))
     return redirect(f"{reverse('scheduling:teacher_schedule')}?day={slot.date}")
 
 
@@ -219,7 +219,7 @@ def create_week_availability(request, week_number):
         form.instance.teacher = teacher_profile
         form.instance.day_of_week = week_number
         if form.is_valid():
-            messages.success(request, "Додано")
+            messages.success(request, _("Додано"))
             form.save()
             return redirect("scheduling:week_availability")
     else:
@@ -241,7 +241,7 @@ def update_week_availability(request, pk):
         form = TeacherWeekdayAvailabilityForm(request.POST, instance=to_update)
         if form.is_valid():
             form.save()
-            messages.success(request, "Оновлено")
+            messages.success(request, _("Оновлено"))
             return redirect("scheduling:week_availability")
     else:
         form = TeacherWeekdayAvailabilityForm(instance=to_update)
@@ -258,7 +258,7 @@ def update_week_availability(request, pk):
 def delete_week_availability(request, pk):
     teacher_profile = get_object_or_404(TeacherProfile, teacher=request.user)
     to_delete = TeacherWeekdayAvailability.objects.filter(id=pk, teacher=teacher_profile).delete()
-    messages.success(request, "Видалено")
+    messages.success(request, _("Видалено"))
     return redirect("scheduling:week_availability")
 
 
@@ -270,7 +270,7 @@ def create_date_availability(request):
         form.instance.teacher = teacher_profile
         if form.is_valid():
             form.save()
-            messages.success(request, "Додано")
+            messages.success(request, _("Додано"))
             return redirect("scheduling:week_availability")
     else:
         form = TeacherDateAvailabilityForm()
@@ -289,7 +289,7 @@ def update_date_availability(request, pk):
         form = TeacherDateAvailabilityForm(request.POST, instance=to_update)
         if form.is_valid():
             form.save()
-            messages.success(request, "Оновлено")
+            messages.success(request, _("Оновлено"))
             return redirect("scheduling:week_availability")
     else:
         form = TeacherDateAvailabilityForm(instance=to_update)
@@ -305,7 +305,7 @@ def update_date_availability(request, pk):
 def delete_date_availability(request, pk):
     teacher_profile = get_object_or_404(TeacherProfile, teacher=request.user)
     to_delete = TeacherDateAvailability.objects.filter(id=pk, teacher=teacher_profile).delete()
-    messages.success(request, "Видалено")
+    messages.success(request, _("Видалено"))
     return redirect("scheduling:week_availability")
 
 
@@ -330,7 +330,7 @@ def regular_lessons_create(request, week_number):
         form.instance.day_of_week = week_number
         if form.is_valid():
             form.save()
-            messages.success(request, "Додано")
+            messages.success(request, _("Додано"))
             return redirect("scheduling:regular_lessons_info")
     else:
         form = RegularLessonForm(teacher=teacher_profile)
@@ -353,7 +353,7 @@ def regular_lessons_update(request, pk):
                                  teacher=teacher_profile)
         if form.is_valid():
             form.save()
-            messages.success(request, "Оновлено")
+            messages.success(request, _("Оновлено"))
             return redirect("scheduling:regular_lessons_info")
     else:
         form = RegularLessonForm(instance=to_update, teacher=teacher_profile)
@@ -370,7 +370,7 @@ def regular_lessons_update(request, pk):
 def regular_lessons_delete(request, pk):
     teacher_profile = get_object_or_404(TeacherProfile, teacher=request.user)
     to_delete = RegularLesson.objects.filter(id=pk, teacher=teacher_profile).delete()
-    messages.success(request, "Видалено")
+    messages.success(request, _("Видалено"))
     return redirect("scheduling:regular_lessons_info")
 
 
@@ -395,7 +395,7 @@ def student_show_availability(request, date, teacher_id, duration_id):
     parsed_date = datetime.strptime(date, '%Y-%m-%d').date()
 
     if parsed_date < django_timezone.now().date():
-        messages.error(request, "Не можна обрати дату в минулому")
+        messages.error(request, _("Не можна обрати дату в минулому"))
         return redirect("scheduling:student_schedule")
 
     duration = get_object_or_404(TeacherLessonDuration, id=duration_id, teacher_id=teacher_id)
@@ -432,7 +432,7 @@ def student_show_availability(request, date, teacher_id, duration_id):
             break_minutes=break_minutes,
         )
     except ValidationError:
-        messages.error(request, "Жаль, але для цієї дати немає слотів")
+        messages.error(request, _("Жаль, але для цієї дати немає слотів"))
         return redirect("scheduling:student_schedule")
 
     additional_info = get_schedule_info(selected_day_str=date, user=request.user, user_role='student')
@@ -485,7 +485,7 @@ def student_confirm_booking(request):
                 for s in locked_slots
             )
             if has_overlap:
-                messages.error(request, "На жаль, цей час вже зайнято. Спробуйте інший.")
+                messages.error(request, _("На жаль, цей час вже зайнято. Спробуйте інший."))
                 return redirect(f"{reverse('scheduling:student_schedule')}?day={parsed_date}")
             slot = Slot(
                 teacher=teacher_profile,
@@ -498,7 +498,7 @@ def student_confirm_booking(request):
             )
             slot.save()
     except ValidationError:
-        messages.error(request, "На жаль, цей час вже зайнято. Спробуйте інший.")
+        messages.error(request, _("На жаль, цей час вже зайнято. Спробуйте інший."))
         return redirect(f"{reverse('scheduling:student_schedule')}?day={parsed_date}")
-    messages.success(request, "Урок успішно заброньовано!")
+    messages.success(request, _("Урок успішно заброньовано!"))
     return redirect(f"{reverse('scheduling:student_schedule')}?day={parsed_date}")
