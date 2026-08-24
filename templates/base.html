@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -26,18 +27,40 @@
     </div>
 
     <div class="topbar__right">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+        <div class="lang-switch">
+            {% for language in languages %}
+                <button type="submit" form="lang-form-{{ language.code }}"
+                        class="lang-switch__item{% if language.code == LANGUAGE_CODE %} lang-switch__item--active{% endif %}">
+                    {{ language.code|upper }}
+                </button>
+            {% endfor %}
+        </div>
+
+        {% for language in languages %}
+            <form id="lang-form-{{ language.code }}" action="{% url 'set_language' %}" method="post"
+                  style="display:none;">
+                {% csrf_token %}
+                <input type="hidden" name="language" value="{{ language.code }}">
+                <input type="hidden" name="next" value="{{ request.path }}">
+            </form>
+        {% endfor %}
+
         {% if user.is_authenticated %}
             <form class="logout" action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
 
                 <button class="btn btn--ghost" type="submit">
-                    Вийти
+                    {% trans "Вийти" %}
                     <span class="muted">({{ user.username }})</span>
                 </button>
             </form>
         {% else %}
             <a class="btn btn--ghost" href="{% url 'login' %}">
-                Увійти
+                {% trans "Увійти" %}
             </a>
         {% endif %}
     </div>
@@ -50,27 +73,27 @@
 
             <div class="menu-section">
                 <div class="menu-section__title">
-                    Акаунт
+                    {% trans "Акаунт" %}
                 </div>
 
                 {% if user.is_authenticated %}
                     <a class="menu__link" href="{% url 'accounts:home_page' %}">
-                        Головна
+                        {% trans "Головна" %}
                     </a>
                     {% if user.teacherprofile %}
                         <a class="menu__link" href="{% url 'accounts:profile_details' 'teacher' %}">
-                            Профіль
+                            {% trans "Профіль" %}
                         </a>
                     {% elif user.studentprofile %}
                         <a class="menu__link" href="{% url 'accounts:profile_details' 'student' %}">
-                            Профіль
+                            {% trans "Профіль" %}
                         </a>
                     {% endif %}
 
 
                 {% else %}
                     <a class="menu__link" href="{% url 'login' %}">
-                        Увійти
+                        {% trans "Увійти" %}
                     </a>
                 {% endif %}
             </div>
@@ -78,20 +101,20 @@
             {% if user.teacherprofile %}
                 <div class="menu-section">
                     <div class="menu-section__title">
-                        Викладач
+                        {% trans "Викладач" %}
                     </div>
 
                     <a class="menu__link" href="{% url 'scheduling:teacher_schedule' %}">
-                        Розклад
+                        {% trans "Розклад" %}
                     </a>
                     <a class="menu__link" href="{% url 'scheduling:week_availability' %}">
-                        Робочі години
+                        {% trans "Робочі години" %}
                     </a>
                     <a class="menu__link" href="{% url 'accounts:my_students' %}">
-                        Мої учні
+                        {% trans "Мої учні" %}
                     </a>
                     <a class="menu__link" href="{% url 'scheduling:regular_lessons_info' %}">
-                        Сталі уроки
+                        {% trans "Сталі уроки" %}
                     </a>
                 </div>
             {% endif %}
@@ -99,14 +122,14 @@
             {% if user.studentprofile %}
                 <div class="menu-section">
                     <div class="menu-section__title">
-                        Учень
+                        {% trans "Учень" %}
                     </div>
 
                     <a class="menu__link" href="{% url 'scheduling:student_schedule' %}">
-                        Розклад
+                        {% trans "Розклад" %}
                     </a>
                     <a class="menu__link" href="{% url 'accounts:my_teachers' %}">
-                        Мої вчителі
+                        {% trans "Мої вчителі" %}
                     </a>
                 </div>
             {% endif %}
@@ -114,11 +137,14 @@
             {% if user.is_superuser %}
                 <div class="menu-section">
                     <div class="menu-section__title">
-                        Адміністрування
+                        {% trans "Адміністрування" %}
                     </div>
 
                     <a class="menu__link" href="{% url 'admin:index' %}">
-                        Адмін-панель
+                        {% trans "Адмін-панель" %}
+                    </a>
+                    <a class="menu__link" href="/rosetta/">
+                        Rosetta
                     </a>
                 </div>
             {% endif %}
@@ -166,17 +192,20 @@
                 <div class="footer-message">
                     <i class="ti ti-message-2 footer-icon" aria-hidden="true"></i>
                     <span class="footer-text">
-                        Знайшли баг або є ідея? Пишіть мені сюди.
+                        {% trans "Знайшли баг або є ідея? Пишіть мені сюди." %}
                     </span>
                 </div>
 
                 <div class="footer-links">
-                    <a class="footer-social footer-social--telegram" href="https://t.me/kondakovvadym" target="_blank">
-                        <img src="{% static 'images/telegram_logo.svg' %}" alt="" class="footer-icon-svg" width="17" height="17">
+                    <a class="footer-social footer-social--telegram" href="https://t.me/kondakovvadym"
+                       target="_blank">
+                        <img src="{% static 'images/telegram_logo.svg' %}" alt="" class="footer-icon-svg" width="17"
+                             height="17">
                         @kondakovvadym
                     </a>
                     <div class="footer-social footer-social--static">
-                        <img src="{% static 'images/mail.svg' %}" alt="" class="footer-icon-svg" width="17" height="17">
+                        <img src="{% static 'images/mail.svg' %}" alt="" class="footer-icon-svg" width="17"
+                             height="17">
                         kondakovvadim13@gmail.com
                     </div>
                 </div>

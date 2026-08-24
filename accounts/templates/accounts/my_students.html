@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Учні{% endblock %}
+{% block title %}{% trans "Учні" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'accounts/css/my_students.css' %}">
@@ -14,7 +15,7 @@
     <div class="students-header">
 
         <h1 class="students-title">
-            Мої учні
+            {% trans "Мої учні" %}
         </h1>
 
         <a class="students-add-btn" href="{% url 'accounts:add_student' %}">
@@ -24,7 +25,7 @@
                 <path d="M12 5v14"/>
                 <path d="M5 12h14"/>
             </svg>
-            Додати учня
+            {% trans "Додати учня" %}
         </a>
 
     </div>
@@ -49,13 +50,13 @@
                         </div>
 
                         <div class="student-price">
-                            {{ i.price }} ₴/урок
+                            {{ i.price }} {% trans "₴/урок" %}
                         </div>
 
                     </div>
 
                     <div class="student-balance">
-                        <div class="student-balance-label">Баланс</div>
+                        <div class="student-balance-label">{% trans "Баланс" %}</div>
                         <div class="student-balance-amount">{{ i.balance }} ₴</div>
                     </div>
 
@@ -68,7 +69,7 @@
     {% else %}
 
         <p class="students-empty">
-            У вас поки немає учнів.
+            {% trans "У вас поки немає учнів." %}
         </p>
 
     {% endif %}

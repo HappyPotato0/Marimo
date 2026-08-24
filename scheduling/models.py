@@ -2,17 +2,17 @@ from django.db import models
 from accounts.models import TeacherProfile, StudentProfile
 
 from django.core.exceptions import ValidationError
-
+from django.utils.translation import gettext_lazy as _
 
 class Weekday(models.IntegerChoices):
     "Вибір дня тижня"
-    MON = 0, "Понеділок"
-    TUE = 1, "Вівторок"
-    WED = 2, "Середа"
-    THU = 3, "Четвер"
-    FRI = 4, "П'ятниця"
-    SAT = 5, "Субота"
-    SUN = 6, "Неділя"
+    MON = 0, _("Понеділок")
+    TUE = 1, _("Вівторок")
+    WED = 2, _("Середа")
+    THU = 3, _("Четвер")
+    FRI = 4, _("П'ятниця")
+    SAT = 5, _("Субота")
+    SUN = 6, _("Неділя")
 
 
 class TeacherWeekdayAvailability(models.Model):
@@ -28,7 +28,7 @@ class TeacherWeekdayAvailability(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError(
-                "Час закінчення більший за час початку!"
+                _("Час закінчення більший за час початку!")
             )
         overlaps = TeacherWeekdayAvailability.objects.filter(
             teacher=self.teacher,
@@ -42,7 +42,7 @@ class TeacherWeekdayAvailability(models.Model):
 
         if overlaps.exists():
             raise ValidationError(
-                "Цей час пересікається з існуючим!"
+                _("Цей час пересікається з існуючим!")
             )
 
     class Meta:
@@ -63,7 +63,7 @@ class TeacherDateAvailability(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError(
-                "Час закінчення більший за час початку!"
+                _("Час закінчення більший за час початку!")
             )
         overlaps = TeacherDateAvailability.objects.filter(
             teacher=self.teacher,
@@ -78,7 +78,7 @@ class TeacherDateAvailability(models.Model):
 
         if overlaps.exists():
             raise ValidationError(
-                "Цей час пересікається з існуючим!"
+                _("Цей час пересікається з існуючим!")
             )
 
     class Meta:
@@ -88,14 +88,14 @@ class TeacherDateAvailability(models.Model):
 
 class Slot(models.Model):
     class Status(models.TextChoices):
-        BOOKED = 'booked', 'Заброньовано'
-        CANCELLED = 'cancelled', 'Скасовано'
-        BREAK = 'break', 'Перерва'
+        BOOKED = 'booked', _('Заброньовано')
+        CANCELLED = 'cancelled', _('Скасовано')
+        BREAK = 'break', _('Перерва')
 
     class PaidStatus(models.TextChoices):
-        PENDING = 'pending', 'Очікує оплати'
-        PAID = 'paid', 'Оплачено учнем'
-        CONFIRMED = 'confirmed', 'Підтверджено вчителем'
+        PENDING = 'pending', _('Очікує оплати')
+        PAID = 'paid', _('Оплачено учнем')
+        CONFIRMED = 'confirmed', _('Підтверджено вчителем')
 
     teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE)
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, null=True, blank=True)
@@ -115,7 +115,7 @@ class Slot(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError(
-                {'end_time': "Час закінчення більший за час початку!"})
+                {'end_time': _("Час закінчення більший за час початку!")})
 
         if self.status != Slot.Status.CANCELLED:
             overlaps = Slot.objects.filter(
@@ -131,7 +131,7 @@ class Slot(models.Model):
 
             if overlaps.exists():
                 raise ValidationError(
-                    {'start_time': "Цей час пересікається з існуючим!"})
+                    {'start_time': _("Цей час пересікається з існуючим!")})
 
     class Meta:
         ordering = ['date', 'start_time']
@@ -151,7 +151,7 @@ class RegularLesson(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError(
-                {'end_time': "Час закінчення більший за час початку!"})
+                {'end_time': _("Час закінчення більший за час початку!")})
         overlaps = RegularLesson.objects.filter(
             teacher=self.teacher,
             day_of_week=self.day_of_week
@@ -164,7 +164,7 @@ class RegularLesson(models.Model):
 
         if overlaps.exists():
             raise ValidationError(
-                {'start_time': "Цей час пересікається з існуючим!"})
+                {'start_time': _("Цей час пересікається з існуючим!")})
 
     class Meta:
         ordering = ['teacher', 'student', 'day_of_week']

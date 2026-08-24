@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from accounts.models import TeacherStudent, StudentProfile, TeacherProfile, TeacherLessonDuration
 from .models import Slot, TeacherWeekdayAvailability, TeacherDateAvailability, Weekday, RegularLesson
@@ -9,7 +10,7 @@ class SlotForm(forms.ModelForm):
     duration = forms.ModelChoiceField(
         queryset=TeacherLessonDuration.objects.none(),
         required=False,
-        label="Тривалість уроку",
+        label=_("Тривалість уроку"),
     )
 
     class Meta:
@@ -18,6 +19,13 @@ class SlotForm(forms.ModelForm):
         widgets = {
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'})
+        }
+        labels = {
+            "status": _("Статус"),
+            "student": _("Учень"),
+            "start_time": _("Час початку"),
+            "end_time": _("Час завершення"),
+            "comment": _("Коментар"),
         }
 
     def __init__(self, *args, teacher, **kwargs):
@@ -40,16 +48,16 @@ class SlotForm(forms.ModelForm):
         duration = cleaned_data.get('duration')
 
         if status == Slot.Status.BREAK and student:
-            self.add_error('student', "Ви не можете обирати учня, якщо тип Слоту 'Перерва'")
+            self.add_error('student', _("Ви не можете обирати учня, якщо тип Слоту 'Перерва'"))
         if student and not duration:
-            self.add_error('duration', "Оберіть тривалість уроку!")
+            self.add_error('duration', _("Оберіть тривалість уроку!"))
 
 
 class SlotChangeForm(forms.ModelForm):
     duration = forms.ModelChoiceField(
         queryset=TeacherLessonDuration.objects.none(),
         required=False,
-        label="Тривалість уроку",
+        label=_("Тривалість уроку"),
     )
 
     class Meta:
@@ -58,6 +66,12 @@ class SlotChangeForm(forms.ModelForm):
         widgets = {
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'})
+        }
+        labels = {
+            "student": _("Учень"),
+            "start_time": _("Час початку"),
+            "end_time": _("Час завершення"),
+            "comment": _("Коментар"),
         }
 
     def __init__(self, *args, teacher, **kwargs):
@@ -72,7 +86,7 @@ class SlotChangeForm(forms.ModelForm):
         duration = cleaned_data.get('duration')
 
         if student and not duration:
-            self.add_error('duration', 'Оберіть тривалість уроку')
+            self.add_error('duration', _("Оберіть тривалість уроку"))
 
 
 class TeacherWeekdayAvailabilityForm(forms.ModelForm):
@@ -82,6 +96,10 @@ class TeacherWeekdayAvailabilityForm(forms.ModelForm):
         widgets = {
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'})
+        }
+        labels = {
+            "start_time": _("Час початку"),
+            "end_time": _("Час завершення"),
         }
 
 
@@ -94,6 +112,11 @@ class TeacherDateAvailabilityForm(forms.ModelForm):
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'})
         }
+        labels = {
+            "date": _("Дата"),
+            "start_time": _("Час початку"),
+            "end_time": _("Час завершення"),
+        }
 
 
 class RegularLessonForm(forms.ModelForm):
@@ -102,7 +125,11 @@ class RegularLessonForm(forms.ModelForm):
         fields = ('student', 'start_time', 'end_time')
         widgets = {'start_time': forms.TimeInput(attrs={'type': 'time'}),
                    'end_time': forms.TimeInput(attrs={'type': 'time'})}
-
+        labels = {
+            "student": _("Учень"),
+            "start_time": _("Час початку"),
+            "end_time": _("Час завершення"),
+        }
 
     def __init__(self, *args, teacher, **kwargs):
         super().__init__(*args, **kwargs)

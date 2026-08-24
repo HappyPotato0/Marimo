@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% block title %}{{ teacher_student.student.student.first_name }} {{ teacher_student.student.student.last_name }}{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'accounts/css/student_detail.css' %}">
@@ -11,7 +12,7 @@
     <div class="student-profile-card">
 
         <div class="student-profile-balance-banner">
-            <div class="student-profile-balance-label">Баланс учня</div>
+            <div class="student-profile-balance-label">{% trans "Баланс учня" %}</div>
             <div class="student-profile-balance-amount">{{ teacher_student.balance }} ₴</div>
         </div>
 
@@ -34,10 +35,10 @@
 
             <form method="post" class="student-price-row" novalidate>
                 {% csrf_token %}
-                <span class="student-price-label">Ціна за урок</span>
+                <span class="student-price-label">{% trans "Ціна за урок" %}</span>
                 <div class="student-price-input-group">
                     {{ form.price }}
-                    <button type="submit" name="submit_price" class="student-price-save" title="Зберегти">
+                    <button type="submit" name="submit_price" class="student-price-save" title="{% trans "Зберегти" %}">
                         <svg viewBox="0 0 24 24" width="10" height="10" fill="none"
                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                              stroke-linejoin="round">
@@ -55,13 +56,13 @@
 
             {% if teacher_student.student.bio %}
                 <div class="student-profile-bio">
-                    <div class="student-profile-bio-label">Про учня</div>
+                    <div class="student-profile-bio-label">{% trans "Про учня" %}</div>
                     <div class="student-profile-bio-text">{{ teacher_student.student.bio }}</div>
                 </div>
             {% endif %}
 
             <div class="student-balance-change">
-                <div class="student-balance-change-title">Змінити баланс</div>
+                <div class="student-balance-change-title">{% trans "Змінити баланс" %}</div>
 
                 <form method="post" class="student-balance-form" novalidate>
                     {% csrf_token %}
@@ -77,7 +78,7 @@
                     {% endif %}
 
                     <button type="submit" name="submit_balance" class="student-balance-confirm">
-                        Підтвердити
+                        {% trans "Підтвердити" %}
                     </button>
                 </form>
             </div>
@@ -89,7 +90,7 @@
     <div class="student-transactions-panel">
 
         <h2 class="transactions-title">
-            Історія операцій
+            {% trans "Історія операцій" %}
         </h2>
 
         {% if transaction_history %}
@@ -161,7 +162,7 @@
         {% else %}
 
             <p class="transactions-empty">
-                Ще немає жодної операції.
+                {% trans "Ще немає жодної операції." %}
             </p>
 
         {% endif %}
