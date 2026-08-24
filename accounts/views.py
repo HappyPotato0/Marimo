@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.core.mail import send_mail
+from django.utils.translation import gettext_lazy as _
 
 from .forms import AddDurationForm, ChangePriceForm, BalanceActionForm, AddStudentForm
 from .services import STUDENT_ACTIONS, TEACHER_ACTIONS
@@ -24,7 +25,7 @@ def profile_details(request, title):
     if title == 'teacher':
         teacher_profile = TeacherProfile.objects.filter(teacher=request.user).first()
         if teacher_profile is None:
-            raise PermissionDenied("Ви не є вчителем")
+            raise PermissionDenied(_("Ви не є вчителем"))
 
         if request.method == 'POST':
             form = AddDurationForm(request.POST, teacher=teacher_profile)
@@ -50,12 +51,12 @@ def profile_details(request, title):
     elif title == 'student':
         student_profile = StudentProfile.objects.filter(student=request.user).first()
         if student_profile is None:
-            raise PermissionDenied("Ви не є учнем")
+            raise PermissionDenied(_("Ви не є учнем"))
         return render(request, 'accounts/profile/profile_student.html', {
             'student': student_profile,
         })
 
-    raise PermissionDenied("Невідома роль")
+    raise PermissionDenied(_("Невідома роль"))
 
 
 @login_required
@@ -67,12 +68,12 @@ def config_profile(request, action):
         role = "student"
         handler = STUDENT_ACTIONS.get(action)
     else:
-        messages.error(request, 'Профіль не знайдено')
+        messages.error(request, _('Профіль не знайдено'))
         return redirect('accounts:home_page')
 
     if request.method == 'POST':
         if handler is None:
-            messages.error(request, 'Невідома дія')
+            messages.error(request, _('Невідома дія'))
             return redirect('accounts:profile_details', role)
 
         value = request.POST.get('value')
@@ -124,7 +125,7 @@ def student_details(request, pk):
             price_form = ChangePriceForm(request.POST, instance=teacher_student)
             if price_form.is_valid():
                 price_form.save()
-                messages.success(request, "Ціну за урок змінено")
+                messages.success(request, _("Ціну за урок змінено"))
                 return redirect('accounts:student_details', pk)
 
         elif 'submit_balance' in request.POST:
@@ -132,12 +133,12 @@ def student_details(request, pk):
             if balance_form.is_valid():
                 raw_amount = balance_form.cleaned_data['amount']
                 if raw_amount is None or raw_amount == 0:
-                    balance_form.add_error('amount', 'Вкажіть суму для зміни балансу')
+                    balance_form.add_error('amount', _('Вкажіть суму для зміни балансу'))
                 else:
                     with transaction.atomic():
                         locked_ts = TeacherStudent.objects.select_for_update().get(pk=teacher_student.pk)
                         if locked_ts.balance + raw_amount < 0:
-                            messages.error(request, 'У учня недостатньо коштів!')
+                            messages.error(request, _('У учня недостатньо коштів!'))
                         else:
                             balance_action = balance_form.save(commit=False)
                             balance_action.teacher_student = locked_ts
@@ -146,7 +147,7 @@ def student_details(request, pk):
                             balance_action.save()
                             locked_ts.balance += raw_amount
                             locked_ts.save(update_fields=['balance'])
-                            messages.success(request, "Баланс змінено")
+                            messages.success(request, _("Баланс змінено"))
                             return redirect('accounts:student_details', pk)
 
     transaction_history = BalanceAction.objects.filter(teacher_student=teacher_student)
@@ -232,13 +233,13 @@ def add_student(request):
             elif link_created:
                 message = f'''Тебе додали до учнів {teacher_profile.teacher.first_name} {teacher_profile.teacher.last_name} на сайті https://www.iwannabepotato.com/'''
             else:
-                messages.warning(request, "Цей учень же існує в вашому списку!")
+                messages.warning(request, _("Цей учень же існує в вашому списку!"))
                 return redirect('accounts:my_students')
             from .tasks import invite_student
             invite_student.delay(message=message,email=[email])
 
 
-            #messages.success(request, "Учня додано, йому прийде лист з запрошенням на вказану пошту!")
+            messages.success(request, _("Учня додано, йому прийде лист з запрошенням на вказану пошту!"))
             return redirect("accounts:my_students")
     else:
         form = AddStudentForm()

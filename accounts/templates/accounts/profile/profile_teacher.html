@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Профіль{% endblock %}
+{% block title %}{% trans "Профіль" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
@@ -14,11 +15,11 @@
         <div class="profile-nav">
 
             <a class="btn active" href="{% url 'accounts:profile_details' 'teacher' %}">
-                Вчитель
+                {% trans "Вчитель" %}
             </a>
 
             <a class="btn" href="{% url 'accounts:profile_details' 'student' %}">
-                Студент
+                {% trans "Студент" %}
             </a>
 
         </div>
@@ -26,7 +27,7 @@
         <section class="profile-section">
 
             <h2 class="section-title">
-                Загальна інформація
+                {% trans "Загальна інформація" %}
             </h2>
 
             <form
@@ -37,7 +38,7 @@
                 {% csrf_token %}
 
                 <label class="profile-setting-label">
-                    Ім’я
+                    {% trans "Ім'я" %}
                 </label>
 
                 <div class="profile-setting-control">
@@ -46,12 +47,12 @@
                             type="text"
                             name="value"
                             value="{{ user.first_name|default:'' }}"
-                            placeholder="Введіть ім’я"
+                            placeholder="{% trans "Введіть ім'я" %}"
                             required
                     >
 
                     <button class="profile-submit" type="submit">
-                        Змінити
+                        {% trans "Змінити" %}
                     </button>
                 </div>
             </form>
@@ -64,7 +65,7 @@
                 {% csrf_token %}
 
                 <label class="profile-setting-label">
-                    Прізвище
+                    {% trans "Прізвище" %}
                 </label>
 
                 <div class="profile-setting-control">
@@ -73,19 +74,19 @@
                             type="text"
                             name="value"
                             value="{{ user.last_name|default:'' }}"
-                            placeholder="Введіть прізвище"
+                            placeholder="{% trans "Введіть прізвище" %}"
                             required
                     >
 
                     <button class="profile-submit" type="submit">
-                        Змінити
+                        {% trans "Змінити" %}
                     </button>
                 </div>
             </form>
 
             <div class="profile-setting-row">
                 <span class="profile-setting-label">
-                    Пошта
+                    {% trans "Пошта" %}
                 </span>
 
                 <span class="profile-email">
@@ -94,7 +95,7 @@
             </div>
 
             <a class="profile-submit" href="{% url 'password_change' %}">
-                Змінити пароль
+                {% trans "Змінити пароль" %}
             </a>
 
         </section>
@@ -104,7 +105,7 @@
             <section class="profile-section">
 
                 <h2>
-                    На жаль, ви поки що не вчитель(((
+                    {% trans "На жаль, ви поки що не вчитель(((" %}
                 </h2>
 
             </section>
@@ -114,13 +115,13 @@
             <section class="profile-section">
 
                 <h2 class="section-title">
-                    Загальна інформація вчителя
+                    {% trans "Загальна інформація вчителя" %}
                 </h2>
 
                 <div class="teacher-block">
 
                     <h3 class="teacher-block-title">
-                        Тривалість уроків
+                        {% trans "Тривалість уроків" %}
                     </h3>
 
                     <div class="lesson-list">
@@ -130,18 +131,18 @@
                             <div class="lesson-item">
 
                                 <div class="lesson-info">
-                                    <span class="lesson-duration">{{ duration.duration_minutes }} хв</span>
+                                    <span class="lesson-duration">{{ duration.duration_minutes }} {% trans "хв" %}</span>
 
                                     <span class="lesson-divider"></span>
 
                                     <span class="lesson-coefficient">
     <span class="lesson-coefficient-label">
-        коефіцієнт
+        {% trans "коефіцієнт" %}
 
         <span class="info-icon">
             ?
             <span class="info-tooltip info-tooltip--left">
-                Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня
+                {% trans "Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня" %}
             </span>
         </span>
     </span>
@@ -165,7 +166,7 @@
                                     <button
                                             class="delete-btn"
                                             type="submit"
-                                            title="Видалити"
+                                            title="{% trans "Видалити" %}"
                                     >
                                         <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -185,7 +186,7 @@
                         {% empty %}
 
                             <p>
-                                Тривалість уроків поки що не додана
+                                {% trans "Тривалість уроків поки що не додана" %}
                             </p>
 
                         {% endfor %}
@@ -203,37 +204,20 @@
 
                             <div class="lesson-add-fields">
                                 <div class="lesson-add-field{% if form.duration_minutes.errors %} has-error{% endif %}">
-                                    <label for="id_duration_minutes">хвилин</label>
-                                    <input
-                                            type="number"
-                                            id="id_duration_minutes"
-                                            name="duration_minutes"
-                                            placeholder="0"
-                                            value="{{ form.duration_minutes.value|default:'' }}"
-                                            min="1"
-                                            required
-                                    >
+                                    {{ form.duration_minutes.label_tag }}
+                                    {{ form.duration_minutes }}
                                 </div>
 
                                 <span class="lesson-divider"></span>
 
                                 <div class="lesson-add-field">
-                                    <label for="id_coefficient">коефіцієнт</label>
-                                    <input
-                                            type="number"
-                                            id="id_coefficient"
-                                            name="coefficient"
-                                            placeholder="1,0"
-                                            value="{{ form.coefficient.value|default:'' }}"
-                                            step="0.1"
-                                            min="0.1"
-                                            required
-                                    >
+                                    {{ form.coefficient.label_tag }}
+                                    {{ form.coefficient }}
                                 </div>
                             </div>
 
                             <button class="profile-submit" type="submit">
-                                Додати
+                                {% trans "Додати" %}
                             </button>
 
                         </div>
@@ -259,7 +243,7 @@
                 <div class="teacher-block">
 
                     <h3 class="teacher-block-title">
-                        Налаштування розкладу
+                        {% trans "Налаштування розкладу" %}
                     </h3>
 
                     <form
@@ -270,7 +254,7 @@
                         {% csrf_token %}
 
                         <label class="info-label">
-                            Перерва між уроками:
+                            {% trans "Перерва між уроками:" %}
                         </label>
 
                         <input
@@ -285,7 +269,7 @@
                         <input
                                 class="profile-submit"
                                 type="submit"
-                                value="Змінити час"
+                                value="{% trans "Змінити час" %}"
                         >
 
                     </form>
@@ -295,7 +279,7 @@
                 <div class="teacher-block">
 
                     <h3 class="teacher-block-title">
-                        Опис
+                        {% trans "Опис" %}
                     </h3>
 
                     <form
@@ -308,14 +292,14 @@
                         <textarea
                                 class="profile-textarea"
                                 name="value"
-                                placeholder="Введіть опис"
+                                placeholder="{% trans "Введіть опис" %}"
                                 rows="6"
                         >{{ teacher.bio }}</textarea>
 
                         <input
                                 class="profile-submit"
                                 type="submit"
-                                value="Внести зміни"
+                                value="{% trans "Внести зміни" %}"
                         >
 
                     </form>

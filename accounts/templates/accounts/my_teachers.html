@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Вчителі{% endblock %}
+{% block title %}{% trans "Вчителі" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'accounts/css/my_teachers.css' %}">
@@ -14,7 +15,7 @@
     <div class="teachers-header">
 
         <h1 class="teachers-title">
-            Мої вчителі
+            {% trans "Мої вчителі" %}
         </h1>
 
     </div>
@@ -51,12 +52,12 @@
                     <div class="teacher-stats">
 
                         <div class="teacher-stat teacher-stat--balance">
-                            <div class="teacher-stat-label">Мій баланс</div>
+                            <div class="teacher-stat-label">{% trans "Мій баланс" %}</div>
                             <div class="teacher-stat-value">{{ i.balance }} ₴</div>
                         </div>
 
                         <div class="teacher-stat teacher-stat--price">
-                            <div class="teacher-stat-label">Ціна за урок</div>
+                            <div class="teacher-stat-label">{% trans "Ціна за урок" %}</div>
                             <div class="teacher-stat-value">{{ i.price }} ₴</div>
                         </div>
 
@@ -71,7 +72,7 @@
     {% else %}
 
         <p class="teachers-empty">
-            У вас поки немає вчителів.
+            {% trans "У вас поки немає вчителів." %}
         </p>
 
     {% endif %}

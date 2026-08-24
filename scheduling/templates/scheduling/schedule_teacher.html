@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Мій розклад{% endblock %}
+{% block title %}{% trans "Мій розклад" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'scheduling/css/schedule_teacher.css' %}">
@@ -13,14 +14,14 @@
 
         <div class="schedule-header">
             <h1 class="schedule-title">
-                Мій розклад
+                {% trans "Мій розклад" %}
             </h1>
         </div>
 
         <div class="schedule-navigation">
 
             <a class="schedule-nav-btn" href="?day={{ previous_week|date:'Y-m-d' }}">
-                ← Попередній тиждень
+                ← {% trans "Попередній тиждень" %}
             </a>
 
             <form method="get" class="schedule-date-form">
@@ -36,7 +37,7 @@
             </form>
 
             <a class="schedule-nav-btn" href="?day={{ next_week|date:'Y-m-d' }}">
-                Наступний тиждень →
+                {% trans "Наступний тиждень" %} →
             </a>
 
         </div>
@@ -58,7 +59,7 @@
 
                         <a class="schedule-icon-btn schedule-icon-add"
                            href="{% url 'scheduling:add_slot' day.date|date:'Y-m-d' %}"
-                           title="Додати заняття">
+                           title="{% trans "Додати заняття" %}">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
                                  stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                  stroke-linejoin="round">
@@ -80,15 +81,14 @@
 
                                 {% if slot.status == 'break' %}
 
-                                    <!-- ПЕРЕРВА: нейтральний рядок, тільки редагування -->
                                     <div class="schedule-break-row">
                                         <div class="schedule-break-row-main">
                                             <span class="schedule-slot-time">{{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}</span>
-                                            <span class="schedule-break-label">Перерва</span>
+                                            <span class="schedule-break-label">{% trans "Перерва" %}</span>
                                         </div>
                                         <a class="schedule-icon-btn schedule-icon-edit"
                                            href="{% url 'scheduling:update_slot' slot.id %}"
-                                           title="Змінити">
+                                           title="{% trans "Змінити" %}">
                                             <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                  stroke-linejoin="round">
@@ -99,16 +99,14 @@
 
                                 {% elif slot.status == 'cancelled' %}
 
-                                    <!-- СКАСОВАНИЙ УРОК -->
                                     <div class="schedule-slot-card schedule-slot-card--cancelled">
 
-                                        <!-- Рядок 1: час + кнопки дій -->
                                         <div class="schedule-slot-top">
                                             <span class="schedule-slot-time">{{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}</span>
                                             <div class="schedule-slot-actions">
                                                 <a class="schedule-icon-btn schedule-icon-edit"
                                                    href="{% url 'scheduling:update_slot' slot.pk %}"
-                                                   title="Змінити">
+                                                   title="{% trans "Змінити" %}">
                                                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                          stroke-linejoin="round">
@@ -117,7 +115,7 @@
                                                 </a>
                                                 <a class="schedule-icon-btn schedule-icon-restore"
                                                    href="{% url 'scheduling:restore_slot' slot.id %}"
-                                                   title="Відновити{% if slot.paid_status == 'confirmed' %} (спише {{ slot.price }} ₴ з балансу учня){% endif %}">
+                                                   title="{% trans "Відновити" %}{% if slot.paid_status == 'confirmed' %} {% blocktrans with price=slot.price %}(спише {{ price }} ₴ з балансу учня){% endblocktrans %}{% endif %}">
                                                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                          stroke-linejoin="round">
@@ -128,13 +126,11 @@
                                             </div>
                                         </div>
 
-                                        <!-- Рядок 2: ім'я (обрізається) + статус -->
                                         <div class="schedule-slot-name-row">
                                             <span class="schedule-slot-student-name">{{ slot.student }}</span>
-                                            <span class="schedule-slot-status-badge schedule-status--cancelled">Скасовано</span>
+                                            <span class="schedule-slot-status-badge schedule-status--cancelled">{% trans "Скасовано" %}</span>
                                         </div>
 
-                                        <!-- Повернення коштів (якщо урок був підтверджений на момент скасування) -->
                                         {% if slot.paid_status == 'confirmed' and slot.price %}
                                             <div class="schedule-slot-refund">
                                                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
@@ -143,11 +139,10 @@
                                                     <path d="M9 14l-4-4 4-4"/>
                                                     <path d="M5 10h11a4 4 0 0 1 4 4v1"/>
                                                 </svg>
-                                                <span>{{ slot.last_refund_amount }} ₴ повернено учню</span>
+                                                <span>{% blocktrans with amount=slot.last_refund_amount %}{{ amount }} ₴ повернено учню{% endblocktrans %}</span>
                                             </div>
                                         {% endif %}
 
-                                        <!-- Коментар (якщо є) -->
                                         {% if slot.comment %}
                                             <div class="schedule-slot-comment">
                                                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
@@ -163,16 +158,14 @@
 
                                 {% else %}
 
-                                    <!-- АКТИВНИЙ УРОК -->
                                     <div class="schedule-slot-card schedule-slot-card--{{ slot.paid_status }}">
 
-                                        <!-- Рядок 1: час + кнопки дій -->
                                         <div class="schedule-slot-top">
                                             <span class="schedule-slot-time">{{ slot.start_time|time:"H:i" }}–{{ slot.end_time|time:"H:i" }}</span>
                                             <div class="schedule-slot-actions">
                                                 <a class="schedule-icon-btn schedule-icon-edit"
                                                    href="{% url 'scheduling:update_slot' slot.pk %}"
-                                                   title="Змінити">
+                                                   title="{% trans "Змінити" %}">
                                                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                          stroke-linejoin="round">
@@ -181,7 +174,7 @@
                                                 </a>
                                                 <a class="schedule-icon-btn schedule-icon-cancel"
                                                    href="{% url 'scheduling:cancel_slot' slot.id %}"
-                                                   title="Відмінити">
+                                                   title="{% trans "Відмінити" %}">
                                                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                          stroke-linejoin="round">
@@ -192,7 +185,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Рядок 2: ім'я (обрізається) + статус -->
                                         <div class="schedule-slot-name-row">
                                             <span class="schedule-slot-student-name">{{ slot.student }}</span>
                                             <span class="schedule-slot-status-badge schedule-status--{{ slot.paid_status }}">
@@ -200,14 +192,12 @@
                                             </span>
                                         </div>
 
-                                        <!-- Ціна (якщо є) -->
                                         {% if slot.price %}
                                             <div class="schedule-slot-price">
                                                 {{ slot.price }} ₴
                                             </div>
                                         {% endif %}
 
-                                        <!-- Коментар (якщо є) -->
                                         {% if slot.comment %}
                                             <div class="schedule-slot-comment">
                                                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none"
@@ -219,7 +209,6 @@
                                             </div>
                                         {% endif %}
 
-                                        <!-- Кнопка підтвердження оплати (якщо ще не підтверджено) -->
                                         {% if slot.paid_status != 'confirmed' %}
                                             <form
                                                     class="schedule-confirm-form"
@@ -229,7 +218,7 @@
                                                 {% csrf_token %}
 
                                                 <button class="schedule-btn schedule-confirm-btn" type="submit">
-                                                    Підтвердити оплату
+                                                    {% trans "Підтвердити оплату" %}
                                                 </button>
 
                                             </form>
@@ -246,7 +235,7 @@
                     {% else %}
 
                         <p class="schedule-empty">
-                            Немає слотів
+                            {% trans "Немає слотів" %}
                         </p>
 
                     {% endif %}
@@ -259,7 +248,7 @@
 
     </div>
 
-    {% if form_mode %}
+    {% if is_edit_mode is not None %}
 
         <div class="slot-form-overlay">
 
@@ -267,7 +256,13 @@
 
                 <div class="slot-modal-header">
                     <div>
-                        <div class="slot-modal-title">{{ form_mode }}</div>
+                        <div class="slot-modal-title">
+                            {% if is_edit_mode %}
+                                {% trans "Редагувати заняття" %}
+                            {% else %}
+                                {% trans "Додати заняття" %}
+                            {% endif %}
+                        </div>
                         <div class="slot-modal-date-badge" id="slot-modal-date" data-date="{{ form_day_label }}">
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -292,9 +287,9 @@
                         </div>
                     {% endif %}
 
-                    {% if form_mode == 'Додати заняття' %}
+                    {% if not is_edit_mode %}
                         <p>
-                            <label for="{{ form.status.id_for_label }}">Статус:</label>
+                            {{ form.status.label_tag }}
                             {{ form.status.errors }}
                             {{ form.status }}
                         </p>
@@ -309,24 +304,24 @@
                                 <path d="M3 10h18"/>
                                 <path d="M9 16l2 2 4-4"/>
                             </svg>
-                            Тип заняття: {{ form.instance.get_status_display }}
+                            {% trans "Тип заняття:" %} {{ form.instance.get_status_display }}
                         </div>
                     {% endif %}
 
-                    {% if form_mode == 'Додати заняття' or form.instance.status != 'break' %}
+                    {% if not is_edit_mode or form.instance.status != 'break' %}
                         <p id="student-field-wrapper">
-                            <label for="{{ form.student.id_for_label }}">Учень:</label>
+                            {{ form.student.label_tag }}
                             {{ form.student.errors }}
                             {{ form.student }}
                         </p>
 
                         <p id="duration-field-wrapper">
                             <label for="{{ form.duration.id_for_label }}" class="label-with-tooltip">
-                                Коефіцієнт уроку
+                                {{ form.duration.label }}
                                 <span class="info-icon">
                                     ?
                                     <span class="info-tooltip">
-                                        Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня
+                                        {% trans "Множник до базової ставки уроку. Наприклад, коефіцієнт ×2 означає, що урок такої тривалості коштує вдвічі дорожче за ціну яка вказана у учня" %}
                                     </span>
                                 </span>
                             </label>
@@ -336,24 +331,24 @@
                     {% endif %}
 
                     <p>
-                        <label for="{{ form.start_time.id_for_label }}">Час початку:</label>
+                        {{ form.start_time.label_tag }}
                         {{ form.start_time.errors }}
                         {{ form.start_time }}
                     </p>
 
                     <p>
-                        <label for="{{ form.end_time.id_for_label }}">Час завершення:</label>
+                        {{ form.end_time.label_tag }}
                         {{ form.end_time.errors }}
                         {{ form.end_time }}
                     </p>
 
                     <p>
-                        <label for="{{ form.comment.id_for_label }}">Коментар:</label>
+                        {{ form.comment.label_tag }}
                         {{ form.comment.errors }}
                         {{ form.comment }}
                     </p>
 
-                    <button type="submit" class="schedule-btn schedule-confirm-btn">Зберегти</button>
+                    <button type="submit" class="schedule-btn schedule-confirm-btn">{% trans "Зберегти" %}</button>
                 </form>
 
             </div>
@@ -414,8 +409,8 @@
                 const dateObj = new Date(year, month - 1, day);
 
                 const weekdays = [
-                    'Неділя', 'Понеділок', 'Вівторок', 'Середа',
-                    'Четвер', "П'ятниця", 'Субота'
+                    '{% trans "Неділя" %}', '{% trans "Понеділок" %}', '{% trans "Вівторок" %}', '{% trans "Середа" %}',
+                    '{% trans "Четвер" %}', '{% trans "П'ятниця" %}', '{% trans "Субота" %}'
                 ];
 
                 const weekdayName = weekdays[dateObj.getDay()];

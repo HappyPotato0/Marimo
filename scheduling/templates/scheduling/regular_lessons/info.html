@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Сталі уроки{% endblock %}
+{% block title %}{% trans "Сталі уроки" %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'scheduling/css/regular_lessons.css' %}">
@@ -12,7 +13,7 @@
     <div class="weekly-wrapper">
 
         <h1 class="weekly-title">
-            Сталі уроки
+            {% trans "Сталі уроки" %}
             <span class="info-icon">
                 <svg viewBox="0 0 24 24" width="25" height="25" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -20,7 +21,7 @@
                     <path d="M12 8h.01"/>
                     <path d="M11 12h1v4h1"/>
                 </svg>
-                <span class="info-tooltip info-tooltip--left">Уроки, які повторюються щотижня в один і той самий день та час з конкретним учнем</span>
+                <span class="info-tooltip info-tooltip--left">{% trans "Уроки, які повторюються щотижня в один і той самий день та час з конкретним учнем" %}</span>
             </span>
         </h1>
 
@@ -38,7 +39,7 @@
 
                         <a class="week-add-btn"
                            href="{% url 'scheduling:regular_lessons_create' day.day_value %}"
-                           title="Додати урок">
+                           title="{% trans "Додати урок" %}">
                             <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                  stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                  stroke-linejoin="round">
@@ -79,7 +80,7 @@
 
                                             <a class="week-icon-btn week-edit-btn"
                                                href="{% url 'scheduling:regular_lessons_update' lesson.id %}"
-                                               title="Змінити">
+                                               title="{% trans "Змінити" %}">
                                                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round">
@@ -89,7 +90,7 @@
 
                                             <a class="week-icon-btn week-delete-btn"
                                                href="{% url 'scheduling:regular_lessons_delete' lesson.id %}"
-                                               title="Видалити">
+                                               title="{% trans "Видалити" %}">
                                                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                      stroke-linejoin="round">
@@ -114,7 +115,7 @@
                     {% else %}
 
                         <p class="week-empty">
-                            Уроків не заплановано
+                            {% trans "Уроків не заплановано" %}
                         </p>
 
                     {% endif %}
