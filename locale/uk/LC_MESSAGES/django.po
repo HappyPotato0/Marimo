@@ -307,7 +307,7 @@ msgstr "Вчителі"
 
 #: .\accounts\templates\accounts\my_teachers.html:18 .\templates\base.html:132
 msgid "Мої вчителі"
-msgstr "Мої вчител"
+msgstr "Мої вчителі"
 
 #: .\accounts\templates\accounts\my_teachers.html:55
 #: .\accounts\templates\accounts\teacher_detail.html:18
