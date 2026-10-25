@@ -115,7 +115,9 @@
                                                 </a>
                                                 <a class="schedule-icon-btn schedule-icon-restore"
                                                    href="{% url 'scheduling:restore_slot' slot.id %}"
-                                                   title="{% trans "Відновити" %}{% if slot.paid_status == 'confirmed' %} {% blocktrans with price=slot.price %}(спише {{ price }} ₴ з балансу учня){% endblocktrans %}{% endif %}">
+                                                   title="
+
+                                                           {% trans "Відновити" %}{% if slot.paid_status == 'confirmed' %} {% blocktrans with price=slot.price %}(спише {{ price }} ₴ з балансу учня){% endblocktrans %}{% endif %}">
                                                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                          stroke-linejoin="round">
@@ -139,7 +141,8 @@
                                                     <path d="M9 14l-4-4 4-4"/>
                                                     <path d="M5 10h11a4 4 0 0 1 4 4v1"/>
                                                 </svg>
-                                                <span>{% blocktrans with amount=slot.last_refund_amount %}{{ amount }} ₴ повернено учню{% endblocktrans %}</span>
+                                                <span>{% blocktrans with amount=slot.last_refund_amount %}{{ amount }} ₴
+                                                    повернено учню{% endblocktrans %}</span>
                                             </div>
                                         {% endif %}
 
@@ -409,8 +412,8 @@
                 const dateObj = new Date(year, month - 1, day);
 
                 const weekdays = [
-                    '{% trans "Неділя" %}', '{% trans "Понеділок" %}', '{% trans "Вівторок" %}', '{% trans "Середа" %}',
-                    '{% trans "Четвер" %}', '{% trans "П'ятниця" %}', '{% trans "Субота" %}'
+                    "{% trans "Неділя" %}", "{% trans "Понеділок" %}", "{% trans "Вівторок" %}", "{% trans "Середа" %}",
+                    "{% trans "Четвер" %}", "{% trans "П'ятниця" %}", "{% trans "Субота" %}"
                 ];
 
                 const weekdayName = weekdays[dateObj.getDay()];
